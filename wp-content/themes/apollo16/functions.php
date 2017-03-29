@@ -8,7 +8,7 @@ add_theme_support( 'post-thumbnails' );
 function charlie_register_menu() {
 	register_nav_menus(
     array(
-      'main-menu' => __( 'Main Menu' ),
+      'site-menu' => __( 'Site Menu' ),
     //  'extra-menu' => __( 'Extra Menu' )
     )
   );
