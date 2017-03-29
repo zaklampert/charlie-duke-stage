@@ -15,11 +15,7 @@ function charlie_meta_data($meta_boxes) {
 		'context' => 'normal',
 		'priority' => 'high',
 		'fields' => array(
-			array(
-				'name'		=> 'Page Subtitle',
-				'id'		=> "subtitle",
-				'type'		=> 'text',
-			),
+
 			array(
 				'name'		=> 'Page Template',
 				'id'		=> "page_format",
@@ -35,6 +31,12 @@ function charlie_meta_data($meta_boxes) {
 				),
 			),
 
+			array(
+				'name'		=> 'Page Subtitle',
+				'id'		=> "subtitle",
+				'type'		=> 'text',
+				'visible' => array('page_format','!=','home_panel')
+			),
 			//Image with Text fields
 				array(
 					'name'		=> 'Image Credit Text',
@@ -89,6 +91,7 @@ function charlie_meta_data($meta_boxes) {
 			array(
 				'name'		=> 'Button text',
 				'id'		=> "button_text",
+				'placeholder'	=> 'Explore',
 				'type'		=> 'text',
 				'visible' => array('page_format','=','home_panel')
 			),
