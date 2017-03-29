@@ -56,7 +56,7 @@ function charlie_meta_data($meta_boxes) {
 				array(
 					'name'		=> 'Left Column Image',
 					'id'		=> "left_col_img",
-					'type'		=> 'media',
+					'type'		=> 'file_advanced',
 					'max_file_uploads' => 1,
 					'visible' => array('page_format','=','two_col')
 				),
@@ -69,7 +69,7 @@ function charlie_meta_data($meta_boxes) {
 				array(
 					'name'		=> 'Right Column Image',
 					'id'		=> "right_col_img",
-					'type'		=> 'media',
+					'type'		=> 'file_advanced',
 					'max_file_uploads' => 1,
 					'visible' => array('page_format','=','two_col')
 				),
