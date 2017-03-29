@@ -80,6 +80,13 @@ function charlie_meta_data($meta_boxes) {
 
 			//Main Menu page options
 			array(
+				'name'		=> 'Display as full panel quote?',
+				'id'		=> "quote_display",
+				'desc'	=> 'The title and button will be hidden while the page text displays as a large quote.',
+				'type'		=> 'checkbox',
+				'visible' => array('page_format','=','home_panel')
+			),
+			array(
 				'name'		=> 'Button text',
 				'id'		=> "button_text",
 				'type'		=> 'text',
