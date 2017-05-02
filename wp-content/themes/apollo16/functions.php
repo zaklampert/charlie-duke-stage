@@ -48,6 +48,9 @@ function duke_create_post_types() {
 
 
 //API customizations
+
+add_filter( 'allowed_http_origin', '__return_true' );
+
  // allow for meta queries
 	add_filter( 'rest_query_vars', 'charlie_query_vars' );
 	function charlie_query_vars ( $valid_vars ) {
