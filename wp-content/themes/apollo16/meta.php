@@ -234,5 +234,62 @@ function charlie_meta_data($meta_boxes) {
 			),
 		)
 	);
+
+	//Events
+	$meta_boxes[] = array(
+		'id' => 'event_options',
+		'title' => '<span class="dashicons dashicons-calendar"></span> Event Details',
+		'pages' => array( 'event'),
+		'context' => 'normal',
+		'priority' => 'high',
+		'geo' => array(
+    	'types' => array('establishment')
+		),
+		'fields' => array(
+			array(
+				'name'		=> 'Event Date',
+				'id'		=> "event_date",
+				'type'		=> 'date',
+				'js_options' => array(
+					'dateFormat' => 'MM d, yy'
+				)
+			),
+			array(
+				'name'		=> 'Event Start Time',
+				'id'		=> "event_start_time",
+				'type'		=> 'time',
+				'js_options' => array(
+					'stepMinute'	=> 5,
+					'timeFormat' => 'hh:mm tt',
+					'showButtonPanel' => false
+				)
+			),
+			// Map requires at least one address field (with type = text)
+			array(
+				'id'   => 'address_venue',
+				'name' => 'Venue Name',
+				'binding' => 'name',
+				'type' => 'text',
+				'size'	=> 50
+			),
+			array(
+				'name'		=> 'Venue Address',
+				'id'		=> 'address_formatted',
+				'binding'		=> "formatted_address",
+				'type'		=> 'text',
+				'size'	=> 50
+			),
+			// array(
+			// 	'id'            => 'map',
+			// 	'name'          => 'Map',
+			// 	'type'          => 'map',
+			// 	// Default location: 'latitude,longitude[,zoom]' (zoom is optional)
+			// 	'std'           => '39.7807961,-84.1093818',
+			// 	// Name of text field where address is entered. Can be list of text fields, separated by commas (for ex. city, state)
+			// 	'address_field' => 'address_autocomplete',
+			// 	'api_key'       => 'AIzaSyBjasiximupDlBz9Tqgb1shcc6ZNoIusxs',
+			// ),
+		)
+	);
 	return $meta_boxes;
 }

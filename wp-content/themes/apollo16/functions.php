@@ -14,3 +14,33 @@ function charlie_register_menu() {
   );
 }
 add_action( 'init', 'charlie_register_menu' );
+
+
+//Create events
+add_action( 'init', 'duke_create_post_types' );
+function duke_create_post_types() {
+	register_post_type( 'event',
+    array(
+      'labels' => array(
+        'name' => __( 'Events' ),
+		'singular_name' => __( 'Event' ),
+		'add_new' => __( 'Add New' ),
+		'add_new_item' => __( 'Add New Event' ),
+		'edit' => __( 'Edit' ),
+		'edit_item' => __( 'Edit Event' ),
+		'new_item' => __( 'New Event' ),
+		'view' => __( 'View Event' ),
+		'view_item' => __( 'View This Event' ),
+		'search_items' => __( 'Search Events' ),
+		'not_found' => __( 'No Events found' ),
+		'not_found_in_trash' => __( 'No Events found in Trash' ),
+      ),
+      'public' => true,
+      'menu_position' => 5,
+      'menu_icon' => 'dashicons-calendar',
+      'hierarchical' => true,
+      'supports' => array( 'title', 'editor', 'thumbnail', 'comments'),
+      'rewrite' => array( 'slug' => 'event', 'with_front' => false ),
+    )
+  );
+}
