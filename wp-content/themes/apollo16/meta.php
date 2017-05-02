@@ -293,3 +293,19 @@ function charlie_meta_data($meta_boxes) {
 	);
 	return $meta_boxes;
 }
+
+function duke_event_date_save_format($new,$field,$old){
+	//hooks into meta-box plugin to customize save format of date field since we save it as YYYY-MM-DD
+	return date('Y-m-d',strtotime($new));
+}
+add_filter('rwmb_date_value','duke_event_date_save_format',10,3);
+
+function duke_event_date_display_format($meta){
+	//hooks into meta-box plugin to customize display format of date field since we save it as YYYY-MM-DD
+	if($meta){
+		$meta = date("F j, Y", strtotime($meta));
+	}
+
+	return $meta;
+}
+add_filter('rwmb_date_field_meta','duke_event_date_display_format',10,1);
