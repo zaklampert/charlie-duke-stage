@@ -91,9 +91,10 @@
 }
 .rwmb-tabs-left .rwmb-tab-active {
 	border: 1px solid #dfdfdf;
-	border-right-color: #fdfdfd;
+	border-right-color: #fff;
 	border-left: 2px #2ea2cc;
 	box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02), 0 1px 0 rgba(0, 0, 0, 0.02);
+	background: #fff;
 	position: relative;
 	right: -1px;
 }
@@ -103,7 +104,7 @@
 	z-index: 1;
 }
 .rwmb-tabs-left .rwmb-tab-panel {
-	padding: 3px 20px 0;
+	padding: 10px 20px 0;
 	background: transparent;
 	border: none;
 }
