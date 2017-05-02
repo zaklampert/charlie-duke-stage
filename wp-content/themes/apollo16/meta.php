@@ -279,6 +279,13 @@ function charlie_meta_data($meta_boxes) {
 				'type'		=> 'text',
 				'size'	=> 50
 			),
+			array(
+				'name'		=> 'Event Link',
+				'id'		=> 'event_link',
+				'type'		=> 'url',
+				'desc'	=> 'URL for more information about this event.',
+				'size'	=> 50
+			),
 			// array(
 			// 	'id'            => 'map',
 			// 	'name'          => 'Map',
