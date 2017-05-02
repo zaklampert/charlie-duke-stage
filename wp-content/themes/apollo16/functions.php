@@ -45,3 +45,41 @@ function duke_create_post_types() {
     )
   );
 }
+
+
+//API customizations
+ // allow for meta queries
+	add_filter( 'rest_query_vars', 'charlie_query_vars' );
+	function charlie_query_vars ( $valid_vars ) {
+		 $valid_vars = array_merge( $valid_vars, array( 'key', 'value', 'compare','meta_query')); //add these parameteres to the allowed vars from the rest api
+		return $valid_vars;
+	}
+
+	add_action( 'rest_api_init', function () {
+		register_rest_route( 'duke/v1', '/events/future', array(
+			'methods' => 'GET',
+			'callback' => 'duke_get_future_events',
+		) );
+	} );
+
+	function duke_get_future_events(){
+		$args = array(
+			'post_type' => 'event',
+			'meta_query' => array(
+				array(
+					'key' => 'event_date',
+					'value' => strtotime("today"),  //get current date in UNIX so we can compare to event dates
+					'compare' => '>=',
+				),
+		)
+		);
+
+		$the_query = new WP_Query( $args );
+		$results = array();
+		foreach($the_query->posts as $event){
+			$meta = get_post_meta( $event->ID);
+			$results[$event->ID] = $event;
+			$results[$event->ID]->meta = $meta;
+		}
+		return $results;
+	}

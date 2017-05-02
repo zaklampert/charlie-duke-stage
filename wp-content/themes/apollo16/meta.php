@@ -295,15 +295,15 @@ function charlie_meta_data($meta_boxes) {
 }
 
 function duke_event_date_save_format($new,$field,$old){
-	//hooks into meta-box plugin to customize save format of date field since we save it as YYYY-MM-DD
-	return date('Y-m-d',strtotime($new));
+	//hooks into meta-box plugin to customize save format of date field since we save it as unix
+	return strtotime($new);
 }
 add_filter('rwmb_date_value','duke_event_date_save_format',10,3);
 
 function duke_event_date_display_format($meta){
-	//hooks into meta-box plugin to customize display format of date field since we save it as YYYY-MM-DD
+	//hooks into meta-box plugin to customize display format of date field since we save it as unix
 	if($meta){
-		$meta = date("F j, Y", strtotime($meta));
+		$meta = date("F j, Y", $meta);
 	}
 
 	return $meta;
