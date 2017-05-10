@@ -27,7 +27,6 @@ function charlie_meta_data($meta_boxes) {
 					'quote' => "Quote",
 					'two_col' => "Two Column",
 					'full_image' => "Full Sized Image"
-
 				),
 			),
 
@@ -296,6 +295,26 @@ function charlie_meta_data($meta_boxes) {
 			// 	'address_field' => 'address_autocomplete',
 			// 	'api_key'       => 'AIzaSyBjasiximupDlBz9Tqgb1shcc6ZNoIusxs',
 			// ),
+		)
+	);
+
+
+	//Products
+	$meta_boxes[] = array(
+		'id' => 'event_options',
+		'title' => '<span class="dashicons dashicons-store"></span> Product Details',
+		'pages' => array( 'product'),
+		'context' => 'normal',
+		'priority' => 'high',
+		'fields' => array(
+			array(
+				'name'		=> 'Base Price',
+				'id'		=> "price",
+				'type'		=> 'text',
+				'js_options' => array(
+					'dateFormat' => 'MM d, yy'
+				)
+			),
 		)
 	);
 	return $meta_boxes;

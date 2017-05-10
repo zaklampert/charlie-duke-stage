@@ -15,6 +15,14 @@ function charlie_register_menu() {
 }
 add_action( 'init', 'charlie_register_menu' );
 
+function as_currency_js(){
+	wp_enqueue_script( 'accounting', get_template_directory_uri().'/js/accounting.min.js',false,'0.3.2',true);
+	wp_enqueue_script( 'apollo', get_template_directory_uri().'/js/apollo.js',array('jquery','accounting'),'1.0',true);
+}
+
+// Add hook for admin <head></head>
+add_action( 'admin_print_scripts-post-new.php', 'as_currency_js', 20 );
+add_action( 'admin_print_scripts-post.php', 'as_currency_js', 20 );
 
 //Create events
 add_action( 'init', 'duke_create_post_types' );
@@ -40,8 +48,34 @@ function duke_create_post_types() {
       'menu_position' => 5,
       'menu_icon' => 'dashicons-calendar',
       'hierarchical' => true,
-      'supports' => array( 'title', 'editor', 'thumbnail', 'comments'),
+      'supports' => array( 'title', 'editor', 'thumbnail'),
       'rewrite' => array( 'slug' => 'event', 'with_front' => false ),
+    )
+  );
+	register_post_type( 'product',
+    array(
+      'labels' => array(
+        'name' => __( 'Products' ),
+				'singular_name' => __( 'Product' ),
+				'add_new' => __( 'Add New' ),
+				'add_new_item' => __( 'Add New Product' ),
+				'edit' => __( 'Edit' ),
+				'edit_item' => __( 'Edit Product' ),
+				'new_item' => __( 'New Product' ),
+				'view' => __( 'View Product' ),
+				'view_item' => __( 'View This Product' ),
+				'search_items' => __( 'Search Products' ),
+				'not_found' => __( 'No Products found' ),
+				'not_found_in_trash' => __( 'No Products found in Trash' ),
+      ),
+			'show_in_rest' => true, //include in API
+      'public' => true,
+      'menu_position' => 6,
+			'taxonomies'  => array( 'category' ),
+      'menu_icon' => 'dashicons-store',
+      'hierarchical' => true,
+      'supports' => array( 'title', 'editor', 'thumbnail'),
+      'rewrite' => array( 'slug' => 'product', 'with_front' => false ),
     )
   );
 }
