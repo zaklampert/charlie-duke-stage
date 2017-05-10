@@ -313,9 +313,18 @@ function charlie_meta_data($meta_boxes) {
 				'id'		=> "price",
 				'class' => "pricing",
 				'type'		=> 'text',
-				'js_options' => array(
-					'dateFormat' => 'MM d, yy'
-				)
+			),
+			array(
+				'name'		=> 'Domestic Shipping',
+				'id'		=> "dom_shipping",
+				'class' => "pricing",
+				'type'		=> 'text',
+			),
+			array(
+				'name'		=> 'International Shipping',
+				'id'		=> "intnl_shipping",
+				'class' => "pricing",
+				'type'		=> 'text',
 			),
 		)
 	);
