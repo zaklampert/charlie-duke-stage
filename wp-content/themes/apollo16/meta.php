@@ -26,7 +26,8 @@ function charlie_meta_data($meta_boxes) {
 					'img_caption' => "Image with Caption",
 					'quote' => "Quote",
 					'two_col' => "Two Column",
-					'full_image' => "Full Sized Image"
+					'full_image' => "Full Sized Image",
+					'events' => "Events Page"
 				),
 			),
 
@@ -301,7 +302,7 @@ function charlie_meta_data($meta_boxes) {
 
 	//Products
 	$meta_boxes[] = array(
-		'id' => 'event_options',
+		'id' => 'product_details',
 		'title' => '<span class="dashicons dashicons-store"></span> Product Details',
 		'pages' => array( 'product'),
 		'context' => 'normal',
@@ -310,6 +311,7 @@ function charlie_meta_data($meta_boxes) {
 			array(
 				'name'		=> 'Base Price',
 				'id'		=> "price",
+				'class' => "pricing",
 				'type'		=> 'text',
 				'js_options' => array(
 					'dateFormat' => 'MM d, yy'

@@ -86,8 +86,15 @@ function duke_create_post_types() {
  // allow for meta queries
 	add_filter( 'rest_query_vars', 'charlie_query_vars' );
 	function charlie_query_vars ( $valid_vars ) {
-		 $valid_vars = array_merge( $valid_vars, array( 'key', 'value', 'compare','meta_query')); //add these parameteres to the allowed vars from the rest api
+		 $valid_vars = array_merge( $valid_vars, array( 'key', 'value', 'compare','meta_query','meta_key','meta_value')); //add these parameteres to the allowed vars from the rest api
 		return $valid_vars;
+	}
+
+	add_filter('rest_endpoints', 'charlie_modify_rest_routes');
+	//add support for numberical ordering
+	function charlie_modify_rest_routes( $routes ) {
+	  array_push( $routes['/wp/v2/posts'][0]['args']['orderby']['enum'], 'meta_value_num' );
+	  return $routes;
 	}
 
 	add_action( 'rest_api_init', function () {
