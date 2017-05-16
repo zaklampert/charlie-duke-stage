@@ -27,7 +27,8 @@ function charlie_meta_data($meta_boxes) {
 					'quote' => "Quote",
 					'two_col' => "Two Column",
 					'full_image' => "Full Sized Image",
-					'events' => "Events Page"
+					'events' => "Events Page",
+					'shop'	=> "Shop Page"
 				),
 			),
 
@@ -315,13 +316,13 @@ function charlie_meta_data($meta_boxes) {
 				'type'		=> 'text',
 			),
 			array(
-				'name'		=> 'Domestic Shipping',
+				'name'		=> 'Domestic Shipping Cost',
 				'id'		=> "dom_shipping",
 				'class' => "pricing",
 				'type'		=> 'text',
 			),
 			array(
-				'name'		=> 'International Shipping',
+				'name'		=> 'International Shipping Cost',
 				'id'		=> "intnl_shipping",
 				'class' => "pricing",
 				'type'		=> 'text',
