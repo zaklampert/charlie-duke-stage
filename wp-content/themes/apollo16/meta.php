@@ -327,6 +327,15 @@ function charlie_meta_data($meta_boxes) {
 				'class' => "pricing",
 				'type'		=> 'text',
 			),
+			array(
+				'name'		=> 'Variations',
+				'id'		=> "variants",
+				'type'		=> 'checkbox_list',
+				'option' => array(
+					'signed' => "Signed",
+					'unsigned' => "Unsigned"
+				)
+			),
 		)
 	);
 	return $meta_boxes;
