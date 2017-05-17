@@ -145,16 +145,16 @@ function duke_create_post_types() {
 	function duke_add_thumbnail_to_JSON() {
 		//Add featured image
 		register_rest_field( 'page',
-		    'featured_image_src',
+		    'featured_image',
 		    array(
-		        'get_callback'    => 'duke_get_image_src',
+		        'get_callback'    => 'duke_get_image',
 		        'update_callback' => null,
 		        'schema'          => null,
 		         )
 		    );
 		}
 
-		function duke_get_image_src( $object, $field_name, $request ) {
+		function duke_get_image( $object, $field_name, $request ) {
 		    $feat_img_array = wp_get_attachment_image_src($object['featured_media'], 'full', true);
-		    return $feat_img_array[0];
+		    return $feat_img_array;
 		}
