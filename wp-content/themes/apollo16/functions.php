@@ -156,5 +156,9 @@ function duke_create_post_types() {
 
 		function duke_get_image( $object, $field_name, $request ) {
 		    $feat_img_array = wp_get_attachment_image_src($object['featured_media'], 'full', true);
-		    return $feat_img_array;
+				if($feat_img_array && is_array($feat_img_array)){
+					$keys = array('url','width','height','ignore_this');
+					$image_data = array_combine($keys,$feat_img_array);
+				}
+		    return $image_data;
 		}
