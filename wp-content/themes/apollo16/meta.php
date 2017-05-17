@@ -331,7 +331,7 @@ function charlie_meta_data($meta_boxes) {
 				'name'		=> 'Variations',
 				'id'		=> "variants",
 				'type'		=> 'checkbox_list',
-				'option' => array(
+				'options' => array(
 					'signed' => "Signed",
 					'unsigned' => "Unsigned"
 				)
