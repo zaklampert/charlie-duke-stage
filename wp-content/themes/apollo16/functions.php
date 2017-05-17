@@ -140,3 +140,21 @@ function duke_create_post_types() {
 
 			});
 		}, 15 );
+
+	add_action( 'rest_api_init', 'duke_add_thumbnail_to_JSON' );
+	function duke_add_thumbnail_to_JSON() {
+		//Add featured image
+		register_rest_field( 'page',
+		    'featured_image_src',
+		    array(
+		        'get_callback'    => 'duke_get_image_src',
+		        'update_callback' => null,
+		        'schema'          => null,
+		         )
+		    );
+		}
+
+		function duke_get_image_src( $object, $field_name, $request ) {
+		    $feat_img_array = wp_get_attachment_image_src($object['featured_media'], 'full', true);
+		    return $feat_img_array[0];
+		}
