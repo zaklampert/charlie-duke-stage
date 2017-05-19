@@ -102,6 +102,10 @@ function duke_create_post_types() {
 			'methods' => 'GET',
 			'callback' => 'duke_get_future_events',
 		) );
+		register_rest_route( 'duke/v1', '/stripe/charge', array(
+			'methods' => 'POST',
+			'callback' => 'duke_charge_stripe',
+		) );
 	} );
 
 	function duke_get_future_events(){
@@ -126,6 +130,52 @@ function duke_create_post_types() {
 		return $results;
 	}
 
+	function duke_is_api_call_missing_stripe_params($parameters){
+		if(!isset($parameters['amount']) || empty($parameters['amount']))
+			$error = "No amount provided";
+
+		if(!isset($parameters['token']) || empty($parameters['token']))
+			$error = "No token provided";
+
+		if(!$error)
+			return false;
+		else
+			return $error;
+	}
+
+	function duke_charge_stripe($request){
+		require_once(dirname(__FILE__).'/inc/stripe-php-4.9.1/init.php');
+		$parameters = $request->get_json_params();
+
+		if($error = duke_is_api_call_missing_stripe_params($request)){
+			$data['message'] = $error;
+			$code = 400;
+		} else {
+			$data['message'] = "Stripe called";
+			\Stripe\Stripe::setApiKey(STRIPE_TEST_SK);
+			try {
+				$data['stripe_response'] = \Stripe\Charge::create(
+					array(
+						'amount' => $parameters['amount'],
+						'currency' => 'usd',
+						'source' => $parameters['token']
+					)
+				);
+			} catch(Exception $e){
+				$data['stripe'] = $e;
+			}
+
+		}
+
+		// Create the response object
+		$response = new WP_REST_Response( $data );
+		// Add a custom status code
+		if($code)
+			$response->set_status( $code );
+
+		return rest_ensure_response($response);
+	}
+
 	/**
 		 * Only allow GET requests and add cross origin wildcard
 		 */
@@ -134,7 +184,7 @@ function duke_create_post_types() {
 			remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
 			add_filter( 'rest_pre_serve_request', function( $value ) {
 				header( 'Access-Control-Allow-Origin: *');
-				header( 'Access-Control-Allow-Methods: GET' );
+				header( 'Access-Control-Allow-Methods: GET,POST' );
 
 				return $value;
 
