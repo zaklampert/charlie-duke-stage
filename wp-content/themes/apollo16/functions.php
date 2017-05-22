@@ -131,11 +131,21 @@ function duke_create_post_types() {
 	}
 
 	function duke_is_api_call_missing_stripe_params($parameters){
+
+		if(!is_array($parameters))
+			return "Improperly formed data.";
+
 		if(!isset($parameters['amount']) || empty($parameters['amount']))
 			$error = "No amount provided";
 
 		if(!isset($parameters['token']) || empty($parameters['token']))
 			$error = "No token provided";
+
+		if(!isset($parameters['product_description']) || empty($parameters['product_description']))
+				$error = "No product_description provided";
+
+		if(!isset($parameters['shipping']) || empty($parameters['shipping']))
+			$error = "No shipping data provided";
 
 		if(!$error)
 			return false;
@@ -147,20 +157,34 @@ function duke_create_post_types() {
 		require_once(dirname(__FILE__).'/inc/stripe-php-4.9.1/init.php');
 		$parameters = $request->get_json_params();
 
-		if($error = duke_is_api_call_missing_stripe_params($request)){
+		if($error = duke_is_api_call_missing_stripe_params($parameters)){
 			$data['message'] = $error;
 			$code = 400;
 		} else {
+
+			$default_params = array(
+				'amount' => $parameters['amount'],
+				'currency' => 'usd',
+				'source' => $parameters['token'],
+				'description' => $parameters['product_description'],
+				'shipping' => $parameters['shipping']
+			);
+
+			//add receipt email if available
+			if(isset($parameters['email']))
+				$default_params['receipt_email'] = $parameters['email'];
+
+			//add meta data if available
+			$meta_params = duke_build_api_metadata($parameters);
+
+			if(!empty($meta_params))
+				$default_params['metadata'] = $meta_params;
+
+			
 			$data['message'] = "Stripe called";
 			\Stripe\Stripe::setApiKey(STRIPE_TEST_SK);
 			try {
-				$data['stripe_response'] = \Stripe\Charge::create(
-					array(
-						'amount' => $parameters['amount'],
-						'currency' => 'usd',
-						'source' => $parameters['token']
-					)
-				);
+				$data['stripe_response'] = \Stripe\Charge::create($default_params);
 			} catch(Exception $e){
 				$data['stripe'] = $e;
 			}
@@ -176,6 +200,25 @@ function duke_create_post_types() {
 		return rest_ensure_response($response);
 	}
 
+	function duke_build_api_metadata($params){
+		//meta data fields
+		$accepted = array(
+			'inscription',
+		);
+		$value_exists = array();
+		//support multiple for later
+		foreach($accepted as $valid){
+			if(array_key_exists($valid,$params) && !empty($params[$valid])){
+				$value_exists[$valid] = $params[$valid];
+			}
+		}
+
+		//add combined shipping data if available.
+		if($params['shipping'])
+			$value_exists['shipping'] = $params['shipping']['name'].' '.implode(' ',$params['shipping']['address']);
+
+		return $value_exists;
+	}
 	/**
 		 * Only allow GET requests and add cross origin wildcard
 		 */
