@@ -9,7 +9,7 @@ function charlie_register_menu() {
 	register_nav_menus(
     array(
       'site-menu' => __( 'Site Menu' ),
-    //  'extra-menu' => __( 'Extra Menu' )
+			'nav-menu' => __( 'Hamburger Nav Menu' ),
     )
   );
 }
@@ -180,7 +180,7 @@ function duke_create_post_types() {
 			if(!empty($meta_params))
 				$default_params['metadata'] = $meta_params;
 
-			
+
 			$data['message'] = "Stripe called";
 			\Stripe\Stripe::setApiKey(STRIPE_TEST_SK);
 			try {
