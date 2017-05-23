@@ -5,17 +5,21 @@ import moment from 'moment';
 // import {buttons} from './SectionIntro';
 
 const Events = ({events, image, content}) => (
-  <div style={{background: 'black', color: 'white', minWidth: "100vw", minHeight: '100vh',}}>
-    <div style={{
+  <div>
+    {/* <div style={{
       position: 'absolute',
       top: '50%',
       width: '100vw',
       transform:'translateY(-50%)',
-    }}>
+    }}> */}
     <div className={css(styles.row)}>
       <div className={css(styles.half)}>
-        <div dangerouslySetInnerHTML={{__html: content}} style={{fontWeight: '300', fontSize: '22px'}}/>
-      </div>
+
+        <div dangerouslySetInnerHTML={{__html: content}} style={{
+          fontWeight: '300',
+          fontSize: '22px',
+        }}/>
+        </div>
       <div className={css(styles.half)}>
         <div className={css(styles.events)} >
           <h1>Upcoming Appearances</h1>
@@ -25,9 +29,11 @@ const Events = ({events, image, content}) => (
               <div key={`event_${i}`} style={{
                 padding: '15px 0'
               }}>
-                <span className={css(styles.eventTitle)}
-                      dangerouslySetInnerHTML={{__html: event.title}}
-                />
+                <a href={event.event_link} style={{textDecoration:'none', color: 'white'}}>
+                  <span className={css(styles.eventTitle)}
+                        dangerouslySetInnerHTML={{__html: event.title}}
+                      />
+                </a>
                 <div>
                   <a href={mapsSearchUrl} target="_blank" rel="noopener noreferrer" style={{color: 'white',}}>{event.venue}</a>
                 </div>
@@ -54,7 +60,7 @@ const Events = ({events, image, content}) => (
         </div>
       </div>
     </div>
-</div>
+
   </div>
 )
 
@@ -62,15 +68,17 @@ const Events = ({events, image, content}) => (
 const styles = StyleSheet.create({
   row: {
     display: 'flex',
-    justifyContent: 'space-between',
+    padding: '0 36px',
+    justifyContent: 'space-around',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    padding: '25px',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   half: {
-    width: '50%',
+    width: '49%',
     '@media(max-width: 960px)':{
-      width: '50%',
+      width: '49%',
     },
     '@media (max-width: 670px)':{
       width: '100%'

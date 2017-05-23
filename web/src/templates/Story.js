@@ -31,7 +31,7 @@ export default ({page, handlers}) => (
       }
       return <FullPageSlide
         key={`child_${i}`}
-        theme="light">
+        theme={ ( page.slug === "live" ) ? 'black' : 'light'}>
         {child.template && React.createElement(Layouts[child.template], child)}
       </FullPageSlide>
     })}
