@@ -1,12 +1,9 @@
-const POPULATE_MENU = 'POPULATE_MENU';
+const POPULATE_MAIN_MENU = 'POPULATE_MAIN_MENU';
 
-const menu = (state = {data: [], ready: false}, action) => {
+const menu = (state = [], action) => {
   switch(action.type){
-    case POPULATE_MENU:
-      return {
-        data: action.json,
-        ready: true,
-      };
+    case POPULATE_MAIN_MENU:
+      return action.items
     default:
       return state
   }

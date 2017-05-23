@@ -1,28 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './Menu.css';
-
-const menuItems = [
-  {
-    label: 'About',
-    href: '#about'
-  },
-  {
-    label: 'Apollo',
-    href: '#capcom',
-  },
-  {
-    label: 'Public Speaking',
-    href: '#live',
-  },
-  {
-    label: 'Shop',
-    href: '#shop',
-  },
-  {
-    label: 'Contact',
-    href: ''
-  }
-]
 
 class Menu extends React.Component {
   constructor(props){
@@ -33,6 +11,7 @@ class Menu extends React.Component {
     this._renderItems = this._renderItems.bind(this);
   }
   _renderItems() {
+    const { menu } = this.props;
     return <div style={{
       position: 'fixed',
       top: '0',
@@ -50,8 +29,8 @@ class Menu extends React.Component {
       transform: 'translate(-50%, -50%)',
       width: '90%',
     }}>
-      {(menuItems.map((item) => (
-        <div key={item.label} >
+      {(menu.map((item, i) => (
+        <div key={`menu_item_${i}`} >
           <a style={{
               color: 'white',
               textDecoration: 'none',
@@ -60,8 +39,8 @@ class Menu extends React.Component {
               padding: '8px',
               display: 'inline-block',
             }}
-             href={item.href} onClick={()=>{this.setState({open: false})}}>
-            {item.label}
+             href={item.url} onClick={()=>{this.setState({open: false})}}>
+            {item.title}
           </a>
           </div>
         )
@@ -98,5 +77,12 @@ class Menu extends React.Component {
   }
 }
 
+const mapStateToProps = state => {
+  const { menu } = state
 
-export default Menu;
+  return {
+    menu
+  }
+}
+
+export default connect(mapStateToProps)(Menu);

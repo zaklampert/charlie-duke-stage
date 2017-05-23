@@ -9,6 +9,7 @@ export const POPULATE_PRODUCTS = 'POPULATE_PRODUCTS';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
 export const UPDATE_LOCATION = 'UPDATE_LOCATION';
+export const POPULATE_MAIN_MENU = 'POPULATE_MAIN_MENU';
 
 const API_URL = 'https://charlieduke.wpengine.com';
 const apiOptions = {
@@ -86,6 +87,11 @@ const receiveLocation = ({section, slide})=>({
   slide,
 });
 
+const receiveMainMenu = (items) => ({
+  type: POPULATE_MAIN_MENU,
+  items,
+})
+
 export const updateLocation = ({hash}) => dispatch => {
   pauseHowls();
   const section = (hash.lastIndexOf("/") > -1) ? hash.substring(hash.lastIndexOf("#")+1,hash.lastIndexOf("/")) : hash.split('#')[1];
@@ -124,8 +130,28 @@ const mapWPData = (pages, menu) => dispatch => {
     });
     return item
   })
+  dispatch(getMainMenu(mappedMenuData))
   return dispatch(receivePages(mapDataToPage(mappedMenuData)));
 }
+
+const getMainMenu = (menu) => dispatch => {
+  return fetch(`${API_URL}/wp-json/wp-api-menus/v2/menu-locations/nav-menu`, apiOptions)
+    .then(response => response.json())
+    .then(items => {
+      const mappedItems = items.map(item => {
+        const pageMatch = menu.find(page => { return page.object_id === item.object_id } )
+        return {
+          url: (pageMatch && pageMatch.page_data && pageMatch.page_data.slug) ? `#${pageMatch.page_data.slug}` : item.url,
+          title: item.title,
+        }
+      });
+      return dispatch(receiveMainMenu(mappedItems));
+    })
+    .catch(e => {
+      console.log(e);
+    })
+}
+
 const getEvents = () => dispatch => {
     return fetch(`${API_URL}/wp-json/wp/v2/event?filter%5Borderby%5D=meta_value_num&meta_key=event_date&order=asc`, apiOptions)
     .then(response => response.json())
@@ -158,9 +184,10 @@ const getPages = (menu) => dispatch => {
 export const getWPData = () => dispatch => {
   return fetch(`${API_URL}/wp-json/wp-api-menus/v2/menu-locations/site-menu`, apiOptions)
     .then(response => response.json())
-    .then(json => {
-      dispatch(getPages(json));
+    .then(menu => {
+      dispatch(getPages(menu));
     })
+
     .then(()=>{
       dispatch(getEvents());
     }).then(()=>{
