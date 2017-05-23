@@ -363,6 +363,7 @@ var Intense = (function() {
         // VERTICAL SCANNING
         currentPosition += ( mouse.yCurr - currentPosition );
         if( mouse.yCurr !== lastPosition ) {
+          // eslint-disable-next-line
           var position = parseFloat( calcPosition(currentPosition, containerDimensions.h) );
           position = overflowArea.y * position;
           target.style[ 'webkitTransform' ] = 'translate( 0px, ' + position + 'px)';
@@ -386,6 +387,7 @@ var Intense = (function() {
 
       // Parse arguments
       if ( !element ) {
+        // eslint-disable-next-line 
         throw 'You need to pass an element!';
       }
 

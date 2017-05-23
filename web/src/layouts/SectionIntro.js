@@ -19,6 +19,7 @@ export const buttons = StyleSheet.create({
     border: '3px solid white',
     padding: '22px 44px',
     display: 'block',
+    letterSpacing: '4.8px',
     maxWidth: '275px',
     margin: '20px auto',
     cursor: 'pointer',

@@ -98,27 +98,27 @@ export default class AudioClip extends React.Component{
     if(!ready){
       return (
         <span>
-          <i onClick={()=>this._loadAudio()} className="fa fa-headphones" style={{cursor:'pointer', paddingRight:'5px'}} aria-hidden="true"></i>
+          <i onClick={()=>this._loadAudio()} className="fa fa-2x fa-headphones" style={{cursor:'pointer', paddingRight:'5px', verticalAlign: 'middle'}} aria-hidden="true"></i>
         </span>
       )
     }
     if (!loaded) {
       return (
         <span>
-          <i className="fa fa-spinner fa-pulse fa-fw"></i>
+          <i className="fa fa-2x fa-spinner fa-pulse fa-fw"></i>
         </span>
       )
     }
 
       return (
         <span >
-          {(ended && !playing) ? <i onClick={()=>this._playAudio()} className="fa fa-repeat" style={{cursor:'pointer', paddingRight:'5px'}} aria-hidden="true"></i> : null }
+          {(ended && !playing) ? <i onClick={()=>this._playAudio()} className="fa fa-2x fa-repeat" style={{cursor:'pointer', paddingRight:'5px', verticalAlign: 'middle'}} aria-hidden="true"></i> : null }
           {(paused) ?
-            <i onClick={()=>this._playAudio()} className="fa fa-play-circle" style={{cursor:'pointer', paddingRight:'5px'}} aria-hidden="true"></i> :
-            <i onClick={()=>audio.pause()} className="fa fa-pause-circle" style={{cursor:'pointer', paddingRight:'5px'}} aria-hidden="true"></i>
+            <i onClick={()=>this._playAudio()} className="fa fa-2x fa-play-circle" style={{cursor:'pointer', paddingRight:'5px', verticalAlign: 'middle'}} aria-hidden="true"></i> :
+            <i onClick={()=>audio.pause()} className="fa fa-2x fa-pause-circle" style={{cursor:'pointer', paddingRight:'5px', verticalAlign: 'middle'}} aria-hidden="true"></i>
           }
-          {/* <i onClick={()=>{audio.stop()}} className="fa fa-stop-circle" aria-hidden="true"></i> */}
-          <span > {`${formatTime(currentPosition)} / ${formatTime(audio.duration())}`}</span>
+          {/* <i onClick={()=>{audio.stop()}} className="fa fa-2x fa-stop-circle" aria-hidden="true"></i> */}
+          <span  style={{verticalAlign: 'middle'}}> {`${formatTime(currentPosition)} / ${formatTime(audio.duration())}`}</span>
         </span>
       )
 

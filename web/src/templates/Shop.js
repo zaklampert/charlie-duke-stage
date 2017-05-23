@@ -29,10 +29,12 @@ const Shop = ({page, products}) => (
   <FullPageSection>
     <FullPageSlide
       theme="dark"
-      backgroundPosition="76% center"
+      backgroundPosition="center bottom"
+      backgroundSize="contain"
+      background="/img/shop.jpg"
     >
       <div className={css(styles.products)}>
-        <h2>{page.title}</h2>
+        <div style={{fontSize: '66px', fontWeight: '800'}}>{page.title}</div>
         <div dangerouslySetInnerHTML={{__html: page.content}} />
         <div className={css(styles.row)}>
         {products.map(product => {
@@ -41,6 +43,7 @@ const Shop = ({page, products}) => (
               <div className={css(styles.productInner)}>
               <div data-image={product.image}
                    data-intense={true}
+                   data-src={product.image}
                    style={{
                      backgroundImage: `url(${product.image})`,
                      backgroundRepeat: 'no-repeat',
@@ -195,7 +198,7 @@ class Product extends React.Component{
     <div onClick={()=>this.setState({showOptions: true})} className={css(styles.productDetails)}>
       <div style={{fontSize: '22px'}} dangerouslySetInnerHTML={{__html: product.title}}/>
       <div dangerouslySetInnerHTML={{__html: product.description}}/>
-      <div style={{color: '#666'}}>
+      <div style={{color: '#c3c3c3'}}>
         {displayPrice(product.price)}<br/>
         {/* US Shipping - {displayPrice(product.domesticShipping)}<br/>
         International Shipping - {displayPrice(product.internationalShipping)} */}
@@ -232,12 +235,14 @@ const styles = StyleSheet.create({
     padding: '22px 5px',
     maxWidth: '90%',
     margin: '0 auto',
+    background: 'rgba(0,0,0,.5)',
 
   },
   productDetails: {
     cursor: 'pointer',
     padding: '22px 5px',
     maxWidth: '100%',
+    background: 'rgba(0,0,0,.5)',
 
     margin: '0 auto',
     ':hover':{
@@ -253,6 +258,7 @@ const styles = StyleSheet.create({
   },
   productOptions: {
     padding: '22px 5px',
+    background: 'rgba(0,0,0,.5)',
   },
   products: {
     maxWidth: '1440px',

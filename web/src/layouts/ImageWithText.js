@@ -13,8 +13,6 @@ const ImageWithText = ({image, content, caption, imageLink, dispatch, imageWidth
       display: (video && video.length > 0) ? 'block' : 'inline-block',
       position: 'relative',
       // padding: '67px 12px',
-      left: '50%',
-      transform: "translateX(-50%)"
     }}>
       {(video && video.length > 0) ?
         <VideoPlayer video={video}/> :
@@ -40,7 +38,7 @@ const ImageWithText = ({image, content, caption, imageLink, dispatch, imageWidth
                captionSide: 'bottom',
                width: '100%',
 
-             }}> <div dangerouslySetInnerHTML={{__html: content}}></div>
+             }}> <div dangerouslySetInnerHTML={{__html: content}} className={css(styles.content)} style={{textAlign: 'left'}}></div>
              {(imageLink) ?
                <span  style={{
                  display: 'block',
@@ -60,6 +58,12 @@ const styles = StyleSheet.create({
   imageWithText: {
     maxWidth: '1440px',
     margin: '0 auto',
+    textAlign: 'center'
+  },
+  content: {
+    '@media(max-width: 670px)': {
+      padding: '0px 9px',
+    }
   }
 })
 

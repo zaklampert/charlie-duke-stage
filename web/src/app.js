@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import $ from 'jquery';
 import { TweenMax } from 'gsap';
 import { connect } from 'react-redux'
+// eslint-disable-next-line
 import { fullpage } from 'fullpage.js';
 import { Nav, InteriorNav, Modal, Menu } from './components';
 import { About, Hero, Story, Shop } from './templates';
@@ -49,7 +50,7 @@ class App extends React.Component {
       // resetSlidersKey: '575A8F6E-343B4941-889B3733-CAB30D72',
       easingcss3: 'ease-out',
       scrollingSpeed: 700,
-      scrollHorizontally: true,
+      // scrollHorizontally: true,
       slidesNavigation: false,
       onLeave: function(index, nextIndex){
         setTimeout(()=>{
@@ -132,7 +133,7 @@ class App extends React.Component {
       {(!pages.ready) ?
         <Loading /> :
         <span>
-          <Menu />
+          {(!showInteriorNav) ? <Menu /> : null }
           <Nav
             show={showNav}
             anchors={anchors}

@@ -19,10 +19,10 @@ const Events = ({events, image, content}) => (
       <div className={css(styles.half)}>
         <div className={css(styles.events)} >
           <h1>Upcoming Appearances</h1>
-          {events.map(event=>{
+          {events.map((event,i)=>{
             const mapsSearchUrl = `https://www.google.com/maps/search/${event.address}`
             return (
-              <div key={event.id} style={{
+              <div key={`event_${i}`} style={{
                 padding: '15px 0'
               }}>
                 <span className={css(styles.eventTitle)}
