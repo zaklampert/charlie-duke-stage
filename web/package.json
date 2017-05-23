@@ -2,7 +2,7 @@
   "name": "CharlieDuke-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mywebsite.com/relativepath",
+  "homepage": "https://charlieduke.com",
   "dependencies": {
     "aphrodite": "^1.1.0",
     "express": "^4.13.3",
