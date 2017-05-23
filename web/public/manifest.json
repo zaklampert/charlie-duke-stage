@@ -3,8 +3,8 @@
   "name": "Charlie Duke. Moonwalker.",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "192x192",
+      "src": "apollo_16_icon.png",
+      "sizes": "64x64",
       "type": "image/png"
     }
   ],
