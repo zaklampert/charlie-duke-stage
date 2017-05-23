@@ -25,12 +25,15 @@ export default ({page, handlers}) => (
         buttonText="Explore"
       />
     </FullPageSlide>
-    {page.children && page.children.length > 0 && page.children.map(child => (
-      <FullPageSlide
-        key={child.slug}
+    {page.children && page.children.length > 0 && page.children.map((child,i) => {
+      if (!child.template){
+        console.warn(child.title + " has no template selected!");
+      }
+      return <FullPageSlide
+        key={`child_${i}`}
         theme="light">
-        {React.createElement(Layouts[child.template], child)}
+        {child.template && React.createElement(Layouts[child.template], child)}
       </FullPageSlide>
-    ))}
+    })}
   </FullPageSection>
 )

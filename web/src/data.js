@@ -4,6 +4,10 @@ const lookupTemplate = (page) => {
   if (page.title === "Charlie Duke") {
     return "Hero";
   }
+
+  if (!page.page_data.meta_box.page_format){
+    return "Default"
+  }
   switch(page.page_data.meta_box.page_format) {
     case "home_panel":
       return "Story";
@@ -17,6 +21,9 @@ const lookupTemplate = (page) => {
 }
 
 const lookupChildTemplate = (child) => {
+  if (!child.page_data.meta_box.page_format){
+    return "Default"
+  }
   switch(child.page_data.meta_box.page_format) {
     case "img_caption":
       return "ImageWithText";
@@ -33,8 +40,10 @@ const lookupChildTemplate = (child) => {
   }
 }
 export const mapDataToPage = (dataFromWordpress) => {
-  return dataFromWordpress && dataFromWordpress.map((page, i)=>{
-    return {
+  return dataFromWordpress && dataFromWordpress.filter(page => {
+    return page && page.page_data && page.page_data.status && (page.page_data.status === "publish")
+  }).map((page, i)=>{
+     return {
       template: lookupTemplate(page),
       title: page.title,
       order: i,
@@ -45,7 +54,9 @@ export const mapDataToPage = (dataFromWordpress) => {
             page.page_data &&
             page.page_data.slug,
       content: page && page.page_data &&  page.page_data.content && page.page_data.content.rendered,
-      children: page && page.children && page.children.map(child => {
+      children: page && page.children && page.children.filter(child=>{
+        return child && child.page_data && child.page_data.status && (child.page_data.status === "publish")
+      }).map(child => {
         return {
           title: child && child.title,
           subtitle: child && child.page_data && child.page_data.meta_box && child.page_data.meta_box.subtitle,

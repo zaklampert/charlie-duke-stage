@@ -150,7 +150,9 @@ const getPages = (menu) => dispatch => {
     .then(response => response.json())
     .then(pages => {
       dispatch(mapWPData(pages, menu))
-    });
+    }).catch(err => {
+      console.log(err);
+    })
 }
 
 export const getWPData = () => dispatch => {
