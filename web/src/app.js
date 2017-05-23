@@ -46,11 +46,8 @@ class App extends React.Component {
       scrollOverflow: true,
       menu: '#nav',
       anchors,
-      // resetSliders: true,
-      // resetSlidersKey: '575A8F6E-343B4941-889B3733-CAB30D72',
       easingcss3: 'ease-out',
       scrollingSpeed: 700,
-      // scrollHorizontally: true,
       slidesNavigation: false,
       onLeave: function(index, nextIndex){
         setTimeout(()=>{
