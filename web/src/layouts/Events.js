@@ -5,7 +5,7 @@ import moment from 'moment';
 // import {buttons} from './SectionIntro';
 
 const Events = ({events, image, content}) => (
-  <div>
+  <div style={{maxWidth: '1440px', margin: '0 auto'}}>
     {/* <div style={{
       position: 'absolute',
       top: '50%',
@@ -29,7 +29,7 @@ const Events = ({events, image, content}) => (
               <div key={`event_${i}`} style={{
                 padding: '15px 0'
               }}>
-                <a href={event.event_link} style={{textDecoration:'none', color: 'white'}}>
+                <a href={event.event_link} target="_blank" rel="noopener noreferrer" style={{textDecoration:'none', color: 'white'}}>
                   <span className={css(styles.eventTitle)}
                         dangerouslySetInnerHTML={{__html: event.title}}
                       />
@@ -73,7 +73,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   half: {
     width: '49%',
