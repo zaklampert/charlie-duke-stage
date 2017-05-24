@@ -29,13 +29,13 @@ const Shop = ({page, products}) => (
   <FullPageSection>
     <FullPageSlide
       theme="dark"
-      backgroundPosition="center bottom"
-      backgroundSize="contain"
-      background="/img/shop.jpg"
+      // backgroundPosition="center bottom"
+      // backgroundSize="contain"
+      // background="/img/shop.jpg"
     >
       <div className={css(styles.products)}>
         <div style={{fontSize: '66px', fontWeight: '800'}}>{page.title}</div>
-        <div dangerouslySetInnerHTML={{__html: page.content}} />
+        <div dangerouslySetInnerHTML={{__html: page.content}} ></div>
         <div className={css(styles.row)}>
         {products.map(product => {
           return (
@@ -52,7 +52,7 @@ const Shop = ({page, products}) => (
                      paddingBottom: '100%',
                      width: '100%',
                      margin: '0 auto',
-                     display: 'block',}}/>
+                     display: 'block',}}></div>
               <Product product={product} />
               </div>
             </div>
@@ -60,7 +60,13 @@ const Shop = ({page, products}) => (
         })}
         </div>
       </div>
-
+      <div data-src="/img/shop.jpg" style={{
+        background: `url(/img/shop.jpg)`,
+        backgroundRepeat: 'no-repeat',
+        width: '100%',
+        paddingBottom: '41.7%',
+        backgroundSize: 'contain',
+      }}></div>
     </FullPageSlide>
   </FullPageSection>
 )
@@ -264,9 +270,9 @@ const styles = StyleSheet.create({
     maxWidth: '1440px',
     margin: '0 auto',
     clear: 'both',
-    padding: '15px 100px',
+    padding: '85px 100px 18px 100px',
     '@media (max-width: 670px)':{
-      padding: '22px 22px 100px 22px',
+      padding: '70px 22px 100px 22px',
     }
   },
   title: {
