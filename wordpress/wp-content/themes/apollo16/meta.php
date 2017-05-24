@@ -216,7 +216,7 @@ function charlie_meta_data($meta_boxes) {
 
 			//Page Title options
 			array(
-				'name'		=> 'Page Title Options',
+				'name'		=> 'Page Options',
 				'id'		=> "title_sec",
 				'type'		=> 'heading',
 				'visible' => array('page_format','!=',"home_panel")
@@ -231,6 +231,19 @@ function charlie_meta_data($meta_boxes) {
 				'name'		=> 'Show Page Title?',
 				'id'		=> "title_display",
 				'type'		=> 'checkbox',
+				'visible' => array('page_format','!=','home_panel')
+			),
+			array(
+				'name'		=> 'Navigation Arrow Color',
+				'id'		=> "nav_arrow_color",
+				'type'		=> 'radio',
+				'options' => array(
+					'FFFFFF'	=> "White",
+					'848484'	=> "Grey",
+					'000000'	=> "Black"
+				),
+				'std' => '848484',
+				'inline'	 => false,
 				'visible' => array('page_format','!=','home_panel')
 			),
 		)
