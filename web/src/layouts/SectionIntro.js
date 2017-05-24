@@ -17,10 +17,10 @@ export default ({order, title, copy, buttonText}) => (
 export const buttons = StyleSheet.create({
   button: {
     border: '3px solid white',
-    padding: '13px 9px',
-    display: 'block',
+    padding: '13px 16px',
+    display: 'inline',
     letterSpacing: '4.8px',
-    maxWidth: '160px',
+    // maxWidth: '220px',
     margin: '20px auto',
     cursor: 'pointer',
     fontWeight: '600',

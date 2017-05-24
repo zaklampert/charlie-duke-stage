@@ -174,6 +174,7 @@ class Product extends React.Component{
           }
 
           { (shippingRate ) && ( offerOnlySigned || (offerBoth && wantSigned) || (!offerOnlySigned && !offerBoth)) ?
+            <div style={{margin: '20px auto', display: 'block', textAlign: 'center'}}>
             <StripeCheckout
               {...stripeProps}
               token= {onStripeToken.bind(this, {
@@ -189,10 +190,11 @@ class Product extends React.Component{
               panelLabel={`${product.price} + ${shippingRate} shipping`}
               image={product.image}
             >
+
             <div className={css(buttons.button)} onClick={()=>{this.setState({ordering: true})}}>
               Order
             </div>
-          </StripeCheckout>: null
+          </StripeCheckout></div>: null
           }
           <div style={{fontSize: '12px', cursor: 'pointer', color: '#adadad', padding: '8px'}} onClick={()=>this.setState(initialProductState)}>Cancel</div>
         </div>

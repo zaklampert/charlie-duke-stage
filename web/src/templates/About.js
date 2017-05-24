@@ -18,8 +18,10 @@ export default ({page}) => (
       <Quote
         content={page.content}
       />
-      <div className={css(buttons.button)} onClick={()=>{$.fn.fullpage.moveSlideRight();}}>
-        About Charlie
+      <div style={{textAlign: 'center'}}>
+        <div className={css(buttons.button)} onClick={()=>{$.fn.fullpage.moveSlideRight();}}>
+          About Charlie
+        </div>
       </div>
     </FullPageSlide>
         {page.children && page.children.length > 0 && page.children.map(child => {
