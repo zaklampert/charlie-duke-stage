@@ -45,7 +45,7 @@ class App extends React.Component {
       return page.slug;
     });
     const visitor = ua(UA_ID);
-    
+
     $('#fullpage').fullpage({
       controlArrows: false,
       scrollOverflow: true,
@@ -155,6 +155,7 @@ class App extends React.Component {
               currentAnchor={location.section}
               currentIndex={currentIndex}
               currentSlide={location.slide}
+              arrowColor={location.page && location.page.navArrowColor}
               totalSlides={pages && pages.data && pages.data[currentIndex] && pages.data[currentIndex + 1].children.length}
             /> : null}
 

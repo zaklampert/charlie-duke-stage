@@ -82,7 +82,8 @@ export const mapDataToPage = (dataFromWordpress) => {
           imageHeight: child &&
                  child.featured_image &&
                  child.featured_image.height,
-          content: child && child.page_data && child.page_data.content && child.page_data.content.rendered
+          content: child && child.page_data && child.page_data.content && child.page_data.content.rendered,
+          navArrowColor: child && child.page_data && child.page_data.meta_box && child.page_data.meta_box.nav_arrow_color,
         }
       })
     }

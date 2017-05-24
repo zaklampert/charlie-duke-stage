@@ -85,10 +85,11 @@ const receiveProducts = (products) => ({
   products,
 })
 
-const receiveLocation = ({section, slide})=>({
+const receiveLocation = ({section, slide, page})=>({
   type: UPDATE_LOCATION,
   section,
   slide,
+  page
 });
 
 const receiveMainMenu = (items) => ({
@@ -107,7 +108,7 @@ export const updateLocation = ({hash, page, visitor}) => dispatch => {
   pauseHowls();
   const section = (hash.lastIndexOf("/") > -1) ? hash.substring(hash.lastIndexOf("#")+1,hash.lastIndexOf("/")) : hash.split('#')[1];
   const slide = hash.split('/')[1] || null;
-  return dispatch(receiveLocation({section, slide}))
+  return dispatch(receiveLocation({section, slide, page}))
 }
 
 export const showModal = ({content}) => dispatch => {
