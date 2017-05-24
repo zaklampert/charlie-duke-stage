@@ -5,11 +5,15 @@ import { TweenMax } from 'gsap';
 import { connect } from 'react-redux'
 // eslint-disable-next-line
 import { fullpage } from 'fullpage.js';
+// eslint-disable-next-line
+import ua from 'universal-analytics';
 import { Nav, InteriorNav, Modal, Menu } from './components';
 import { About, Hero, Story, Shop } from './templates';
 import * as actions from './actions';
 import { Loading } from './components';
 import Intense from './lib/intense.js';
+
+const UA_ID = 'UA-16122526-34';
 
 const Templates = {
   About,
@@ -40,7 +44,8 @@ class App extends React.Component {
     const anchors = pages.data && pages.data.map(page=>{
       return page.slug;
     });
-
+    const visitor = ua(UA_ID);
+    
     $('#fullpage').fullpage({
       controlArrows: false,
       scrollOverflow: true,
@@ -51,7 +56,11 @@ class App extends React.Component {
       slidesNavigation: false,
       onLeave: function(index, nextIndex){
         setTimeout(()=>{
-            dispatch(actions.updateLocation({hash: window.location.hash}));
+            dispatch(actions.updateLocation({
+              hash: window.location.hash,
+              page: pages.data[nextIndex - 1],
+              visitor
+            }));
         }, 50);
 
         self._animateIntros(index, nextIndex);
@@ -70,12 +79,15 @@ class App extends React.Component {
           $.fn.fullpage.moveSectionDown();
         }
         setTimeout(()=>{
-            dispatch(actions.updateLocation({hash: window.location.hash}));
+            dispatch(actions.updateLocation({
+              hash: window.location.hash,
+              page: pages.data[index - 1].children[nextSlideIndex - 1],
+              visitor,
+            }));
         }, 50)
 
 
         if(nextSlideIndex > 0){
-
           $.fn.fullpage.setAllowScrolling(false, 'down, up');
         } else {
           $.fn.fullpage.setAllowScrolling(true, 'down, up');
@@ -108,7 +120,7 @@ class App extends React.Component {
     const anchors = pages.data && pages.data.map(page=>{
       return page.slug;
     });
-    const storyPages = pages.data && pages.data.filter((page)=> {return page.template === "Story" || page.template === "About"});
+    const storyPages = pages.data && pages.data.filter((page)=> {return page.template === "Story" || page.template === "About" || page.template === "Shop"});
 
     const showNav = (location.section === "charlie-duke" || location.section === "shop") ? false : (currentIndex > -1 && !location.slide);
     const showInteriorNav = (location.slide);

@@ -1,6 +1,9 @@
+import 'isomorphic-fetch';
 import { mapDataToPage, mapEvents, mapProducts } from '../data';
 import { pauseHowls } from '../helpers';
-import 'isomorphic-fetch';
+
+const API_URL = 'https://charlieduke.wpengine.com';
+
 
 export const POPULATE_MENU = 'POPULATE_MENU';
 export const POPULATE_PAGES = 'POPULATE_PAGES';
@@ -11,7 +14,8 @@ export const HIDE_MODAL = 'HIDE_MODAL';
 export const UPDATE_LOCATION = 'UPDATE_LOCATION';
 export const POPULATE_MAIN_MENU = 'POPULATE_MAIN_MENU';
 
-const API_URL = 'https://charlieduke.wpengine.com';
+
+
 const apiOptions = {
   // headers:{
   // 'Access-Control-Allow-Origin':'*',
@@ -92,7 +96,14 @@ const receiveMainMenu = (items) => ({
   items,
 })
 
-export const updateLocation = ({hash}) => dispatch => {
+export const updateLocation = ({hash, page, visitor}) => dispatch => {
+  visitor.pageview({
+    dp: window.location.hash.split("#")[1],
+    dt: page && page.title,
+    dh: window.location.host,
+  },(err) => {
+    (err) ? console.warn("Could not send pageview to GA") : null;
+  });
   pauseHowls();
   const section = (hash.lastIndexOf("/") > -1) ? hash.substring(hash.lastIndexOf("#")+1,hash.lastIndexOf("/")) : hash.split('#')[1];
   const slide = hash.split('/')[1] || null;

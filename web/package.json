@@ -21,6 +21,7 @@
     "redux": "^3.6.0",
     "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
+    "universal-analytics": "^0.4.13",
     "urijs": "^1.18.10"
   },
   "devDependencies": {
