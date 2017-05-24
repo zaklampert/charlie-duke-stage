@@ -17,26 +17,27 @@ export default ({order, title, copy, buttonText}) => (
 export const buttons = StyleSheet.create({
   button: {
     border: '3px solid white',
-    padding: '22px 44px',
+    padding: '13px 9px',
     display: 'block',
     letterSpacing: '4.8px',
-    maxWidth: '275px',
+    maxWidth: '160px',
     margin: '20px auto',
     cursor: 'pointer',
     fontWeight: '600',
     textTransform: 'uppercase',
-    fontSize: '22px',
+    fontSize: '18px',
     textAlign: 'center',
     ':hover':{
       backgroundColor: 'white',
       color: 'black',
     },
     '@media (max-width: 670px)':{
-      fontSize: '18px',
+      fontSize: '16px',
       border: '2px solid white',
       margin: '10px auto',
-      padding: '15px 30px',
-      maxWidth: '60%'
+      // padding: '15px 30px',
+      maxWidth: '60%',
+      width: '160px',
     }
   }
 })
