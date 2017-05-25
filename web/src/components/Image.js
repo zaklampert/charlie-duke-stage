@@ -2,11 +2,9 @@ import React from 'react';
 import AudioClip from './AudioClip';
 
 export default class Image extends React.Component {
-  constructor(props){
-    super(props);
-  }
+
   render(){
-    const {image, imageLink, audio, imageWidth, imageHeight} = this.props;
+    const {image,  audio} = this.props;
     return (
       <div style={{
         position: 'relative'

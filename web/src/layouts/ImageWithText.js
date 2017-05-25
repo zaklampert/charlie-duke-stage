@@ -1,5 +1,5 @@
 import React from 'react';
-import { AudioClip, VideoPlayer, Image } from '../components';
+import { VideoPlayer, Image } from '../components';
 import { StyleSheet, css } from 'aphrodite';
 // import {showModal} from '../actions';
 import {connect} from 'react-redux';

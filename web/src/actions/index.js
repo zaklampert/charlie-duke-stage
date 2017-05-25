@@ -102,8 +102,6 @@ export const updateLocation = ({hash, page, visitor}) => dispatch => {
     dp: window.location.hash.split("#")[1],
     dt: page && page.title,
     dh: window.location.host,
-  },(err) => {
-    (err) ? console.warn("Could not send pageview to GA") : null;
   });
   pauseHowls();
   const section = (hash.lastIndexOf("/") > -1) ? hash.substring(hash.lastIndexOf("#")+1,hash.lastIndexOf("/")) : hash.split('#')[1];

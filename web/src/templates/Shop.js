@@ -5,7 +5,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import 'isomorphic-fetch';
 import { FullPageSlide, FullPageSection } from '../layouts';
 import { onStripeToken } from '../actions';
-
+import '../css/store.css';
 import {buttons} from '../layouts/SectionIntro';
 
 
@@ -205,7 +205,7 @@ class Product extends React.Component{
   return (
     <div className={css(styles.productDetails)}>
       <div style={{fontSize: '22px'}} dangerouslySetInnerHTML={{__html: product.title}}/>
-      <div dangerouslySetInnerHTML={{__html: product.description}}/>
+      <div dangerouslySetInnerHTML={{__html: product.description}} className="product_description"/>
       <div style={{color: '#c3c3c3'}}>
         {displayPrice(product.price)}<br/>
         {/* US Shipping - {displayPrice(product.domesticShipping)}<br/>

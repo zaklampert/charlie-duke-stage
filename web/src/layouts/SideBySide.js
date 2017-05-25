@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import { AudioClip, VideoPlayer, Image } from '../components';
+import { VideoPlayer, Image } from '../components';
 
 export default ({leftPhoto, leftCaption, rightPhoto, rightCaption, leftVideo, rightVideo, leftImageLink, rightImageLink}) => (
   <div className={css(styles.sideBySide)}>
