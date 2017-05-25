@@ -14,7 +14,7 @@ export default class FullPageSlide extends React.Component{
         backgroundRepeat: "no-repeat",
         color: (theme === "light") ? 'black' : 'white',
       }}>
-      <div>
+      <div className=".normal">
         {children}
       </div>
       </div>

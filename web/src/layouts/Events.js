@@ -5,7 +5,7 @@ import moment from 'moment';
 // import {buttons} from './SectionIntro';
 
 const Events = ({events, image, content}) => (
-  <div style={{maxWidth: '1440px', margin: '0 auto'}}>
+  <div style={{maxWidth: '1440px', margin: '0 auto',}}>
     {/* <div style={{
       position: 'absolute',
       top: '50%',

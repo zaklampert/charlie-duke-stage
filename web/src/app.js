@@ -54,7 +54,8 @@ class App extends React.Component {
       easingcss3: 'ease-out',
       scrollingSpeed: 700,
       slidesNavigation: false,
-      onLeave: function(index, nextIndex){
+      normalScrollElements: '.normal',
+        onLeave: function(index, nextIndex){
         setTimeout(()=>{
             dispatch(actions.updateLocation({
               hash: window.location.hash,
@@ -103,8 +104,8 @@ class App extends React.Component {
         // Load additional dom-required libraries.
         const element = document.querySelectorAll( 'img' );
         const intenseDivs = document.querySelectorAll('*[data-intense="true"]');
-        Intense( element );
-        Intense( intenseDivs );
+        element && element.length > 0 && Intense( element );
+        intenseDivs && intenseDivs.length > 0 &&  Intense( intenseDivs );
       },
     });
 

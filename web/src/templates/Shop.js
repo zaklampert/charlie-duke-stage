@@ -34,7 +34,7 @@ const Shop = ({page, products}) => (
       // background="/img/shop.jpg"
     >
       <div className={css(styles.products)}>
-        <div style={{fontSize: '66px', fontWeight: '800'}}>{page.title}</div>
+        <div className={css(styles.pageTitle)}>{page.title}</div>
         <div dangerouslySetInnerHTML={{__html: page.content}} ></div>
         <div className={css(styles.row)}>
         {products.map(product => {
@@ -281,6 +281,15 @@ const styles = StyleSheet.create({
     fontSize: '78px',
     textAlign: 'center',
     fontFamily: '"futura-pt-bold", sans-serif',
+  },
+  pageTitle: {
+
+      fontSize: '66px',
+      fontFamily: '"futura-pt-bold"',
+      fontWeight: '700',
+      '@media (max-width: 670px)': {
+        fontSize: '44px',
+      }
   }
 })
 

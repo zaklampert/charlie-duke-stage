@@ -1,21 +1,34 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import { AudioClip, VideoPlayer } from '../components';
+import { AudioClip, VideoPlayer, Image } from '../components';
 
 export default ({leftPhoto, leftCaption, rightPhoto, rightCaption, leftVideo, rightVideo, leftImageLink, rightImageLink}) => (
   <div className={css(styles.sideBySide)}>
     <div className={css(styles.half)}>
+      <div style={{display: 'table', margin: '0 auto'}}>
+
       {(leftVideo) ? <VideoPlayer video={leftVideo}/> : null}
-      {(leftPhoto) ? <img alt="Charlie Duke" className={css(styles.image)} data-src={leftPhoto}  data-image={leftPhoto}/> :null }
-      <div className={css(styles.caption)}  dangerouslySetInnerHTML={{__html: leftCaption}}/>
-        {(leftImageLink) ? <div className={css(styles.audio)}><AudioClip source={leftImageLink} /></div> : null }
+      {(leftPhoto) ? <Image image={leftPhoto} audio={leftImageLink} /> :null }
+      <div style={{display: 'table-caption', captionSide: 'bottom',}}>
+        <div className={css(styles.caption)}  dangerouslySetInnerHTML={{__html: leftCaption}}></div>
+      </div>
+    </div>
+
+
 
     </div>
     <div className={css(styles.half)}>
-      {(rightVideo) ? <VideoPlayer video={rightVideo}/> : null }
-      {(rightPhoto) ? <img alt="Charlie Duke" className={css(styles.image)} data-src={rightPhoto} data-image={rightPhoto} /> : null }
-      <div className={css(styles.caption)} dangerouslySetInnerHTML={{__html: rightCaption}}/>
-      {(rightImageLink) ? <div className={css(styles.audio)}><AudioClip source={rightImageLink} /> </div>: null }
+      <div style={{display: 'table', margin: '0 auto'}}>
+
+      {(rightVideo) ? <VideoPlayer video={rightVideo}/> : null}
+      {(rightPhoto) ? <Image image={rightPhoto} audio={rightImageLink} /> :null }
+      <div style={{display: 'table-caption', captionSide: 'bottom',}}>
+        <div className={css(styles.caption)}  dangerouslySetInnerHTML={{__html: rightCaption}}></div>
+      </div>
+    </div>
+
+
+
     </div>
   </div>
 )

@@ -5,11 +5,13 @@ import Loading from './Loading';
 import Modal from './Modal';
 import VideoPlayer from './VideoPlayer'
 import Menu from './Menu';
+import Image from './Image';
 
 export {
     Nav,
     Menu,
     AudioClip,
+    Image,
     Loading,
     InteriorNav,
     Modal,

@@ -98,7 +98,7 @@ export default class AudioClip extends React.Component{
     if(!ready){
       return (
         <span>
-          <i onClick={()=>this._loadAudio()} className="fa fa-2x fa-headphones" style={{cursor:'pointer', paddingRight:'5px', verticalAlign: 'middle'}} aria-hidden="true"></i>
+          <i onClick={()=>this._loadAudio()} className="fa fa-2x fa-headphones" style={{cursor:'pointer', verticalAlign: 'middle'}} aria-hidden="true"></i>
         </span>
       )
     }
