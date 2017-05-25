@@ -9,7 +9,7 @@ export default ({leftPhoto, leftCaption, rightPhoto, rightCaption, leftVideo, ri
 
       {(leftVideo) ? <VideoPlayer video={leftVideo}/> : null}
       {(leftPhoto) ? <Image image={leftPhoto} audio={leftImageLink} /> :null }
-      <div style={{display: 'table-caption', captionSide: 'bottom',}}>
+      <div style={{display: (!leftPhoto) ? 'block':'table-caption',  captionSide: 'bottom',}}>
         <div className={css(styles.caption)}  dangerouslySetInnerHTML={{__html: leftCaption}}></div>
       </div>
     </div>
@@ -22,7 +22,7 @@ export default ({leftPhoto, leftCaption, rightPhoto, rightCaption, leftVideo, ri
 
       {(rightVideo) ? <VideoPlayer video={rightVideo}/> : null}
       {(rightPhoto) ? <Image image={rightPhoto} audio={rightImageLink} /> :null }
-      <div style={{display: 'table-caption', captionSide: 'bottom',}}>
+      <div style={{display: (!rightPhoto) ? 'block' : 'table-caption', captionSide: 'bottom',}}>
         <div className={css(styles.caption)}  dangerouslySetInnerHTML={{__html: rightCaption}}></div>
       </div>
     </div>
@@ -40,8 +40,9 @@ const styles = StyleSheet.create({
     margin: '0 auto',
     // fontSize: '12px',
     padding: '0px 38px',
-    clear: 'both',
     display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection: 'row',
     justifyContent: 'space-around',
   },
   caption: {
@@ -54,6 +55,9 @@ const styles = StyleSheet.create({
   half: {
     width: '48%',
     textAlign: 'center',
+    '@media(max-width: 670px)':{
+      width: '100%',
+    }
   },
   image: {
     maxWidth: '100%',
