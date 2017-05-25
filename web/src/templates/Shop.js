@@ -203,7 +203,7 @@ class Product extends React.Component{
     }
 
   return (
-    <div onClick={()=>this.setState({showOptions: true})} className={css(styles.productDetails)}>
+    <div className={css(styles.productDetails)}>
       <div style={{fontSize: '22px'}} dangerouslySetInnerHTML={{__html: product.title}}/>
       <div dangerouslySetInnerHTML={{__html: product.description}}/>
       <div style={{color: '#c3c3c3'}}>
@@ -211,6 +211,13 @@ class Product extends React.Component{
         {/* US Shipping - {displayPrice(product.domesticShipping)}<br/>
         International Shipping - {displayPrice(product.internationalShipping)} */}
       </div>
+      <div style={{margin: '36px 0px',}}>
+
+
+      <div className={css(buttons.button)} onClick={()=>this.setState({showOptions: true})} >
+        BUY
+      </div>
+        </div>
 
 
     </div>
@@ -251,12 +258,7 @@ const styles = StyleSheet.create({
     padding: '22px 5px',
     maxWidth: '100%',
     background: 'rgba(0,0,0,.5)',
-
     margin: '0 auto',
-    ':hover':{
-      background: '#333'
-    }
-
   },
   link: {
     cursor: 'pointer',
