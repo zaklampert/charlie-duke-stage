@@ -1,6 +1,8 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 
@@ -19,6 +21,8 @@ const store = createStore(
   reducer,
   applyMiddleware(...middleware)
 )
+
+injectTapEventPlugin();
 
 ReactDOM.render(
   <Provider store={store}>
