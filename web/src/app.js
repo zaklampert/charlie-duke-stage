@@ -12,6 +12,7 @@ import { About, Hero, Story, Shop } from './templates';
 import * as actions from './actions';
 import { Loading } from './components';
 import Intense from './lib/intense.js';
+import imagesloaded from 'imagesloaded';
 
 const UA_ID = 'UA-16122526-34';
 
@@ -29,6 +30,7 @@ class App extends React.Component {
       currentIndex: null,
       title: "Charlie Duke",
       fullpageReady: false,
+      allImagesLoaded: false,
     }
     this._animateIntros = this._animateIntros.bind(this);
   }
@@ -38,6 +40,7 @@ class App extends React.Component {
   }
   componentDidUpdate(prevProps) {
     const { pages, dispatch } = this.props;
+    const { allImagesLoaded } = this.state;
     const self = this;
 
     if ( !prevProps.pages.ready && pages.ready ){
@@ -45,70 +48,88 @@ class App extends React.Component {
       return page.slug;
     });
     const visitor = ua(UA_ID);
-
-    $('#fullpage').fullpage({
-      controlArrows: false,
-      scrollOverflow: true,
-      menu: '#nav',
-      anchors,
-      easingcss3: 'ease-out',
-      scrollingSpeed: 700,
-      slidesNavigation: false,
-      normalScrollElements: '.normal',
-        onLeave: function(index, nextIndex){
-        setTimeout(()=>{
-            dispatch(actions.updateLocation({
-              hash: window.location.hash,
-              page: pages.data[nextIndex - 1],
-              visitor
-            }));
-        }, 50);
-
-        self._animateIntros(index, nextIndex);
-        self.setState({
-          currentIndex: nextIndex - 2,
-          title: `Charlie Duke // ${pages.data[nextIndex - 1].title}`,
-          currentSectionTitle: pages.data[nextIndex - 1].title,
-          currentAnchor: pages.data[nextIndex - 1].slug
+    const imgLoad = imagesloaded(document.getElementById('fullpage'), {background: true});
+    let imgCount = 0;
+    imgLoad.on('progress', (instance, image) => {
+      const totalLength = instance.images.length;
+      if (image.isLoaded){
+        imgCount += 1
+      }
+      if(!allImagesLoaded){
+        this.setState({
+          percentageLoaded: (imgCount / totalLength) * 100,
         });
-      },
-      onSlideLeave: function(anchorLink, index, slideIndex, direction, nextSlideIndex){
-        const numberOfSlides =  pages && pages.data && pages.data[index] && pages.data[index - 1].children.length;
-        if ( slideIndex === numberOfSlides &&
-            (nextSlideIndex !== numberOfSlides - 1) &&
-            nextSlideIndex !== numberOfSlides ) {
-          $.fn.fullpage.moveSectionDown();
-        }
-        setTimeout(()=>{
-            dispatch(actions.updateLocation({
-              hash: window.location.hash,
-              page: pages.data[index - 1].children[nextSlideIndex - 1],
-              visitor,
-            }));
-        }, 50)
+      }
 
-
-        if(nextSlideIndex > 0){
-          $.fn.fullpage.setAllowScrolling(false, 'down, up');
-        } else {
-          $.fn.fullpage.setAllowScrolling(true, 'down, up');
-        }
-
-      },
-      afterSlideLoad: function( anchorLink, index, slideAnchor, slideIndex){
-        self.setState({
-          showInteriorNav: (slideIndex === 0 ) ? false : true,
-        })
-      },
-      afterRender: function(){
-        // Load additional dom-required libraries.
-        const element = document.querySelectorAll( 'img' );
-        const intenseDivs = document.querySelectorAll('*[data-intense="true"]');
-        element && element.length > 0 && Intense( element );
-        intenseDivs && intenseDivs.length > 0 &&  Intense( intenseDivs );
-      },
     });
+    imgLoad.on('always', ()=>{
+      this.setState({
+        allImagesLoaded: true,
+      });
+      $('#fullpage').fullpage({
+        controlArrows: false,
+        scrollOverflow: true,
+        menu: '#nav',
+        anchors,
+        lazyLoading: false,
+        easingcss3: 'ease-out',
+        scrollingSpeed: 700,
+        slidesNavigation: false,
+        normalScrollElements: '.normal',
+          onLeave: function(index, nextIndex){
+          setTimeout(()=>{
+              dispatch(actions.updateLocation({
+                hash: window.location.hash,
+                page: pages.data[nextIndex - 1],
+                visitor
+              }));
+          }, 50);
 
+          self._animateIntros(index, nextIndex);
+          self.setState({
+            currentIndex: nextIndex - 2,
+            title: `Charlie Duke // ${pages.data[nextIndex - 1].title}`,
+            currentSectionTitle: pages.data[nextIndex - 1].title,
+            currentAnchor: pages.data[nextIndex - 1].slug
+          });
+        },
+        onSlideLeave: function(anchorLink, index, slideIndex, direction, nextSlideIndex){
+          const numberOfSlides =  pages && pages.data && pages.data[index] && pages.data[index - 1].children.length;
+          if ( slideIndex === numberOfSlides &&
+              (nextSlideIndex !== numberOfSlides - 1) &&
+              nextSlideIndex !== numberOfSlides ) {
+            $.fn.fullpage.moveSectionDown();
+          }
+          setTimeout(()=>{
+              dispatch(actions.updateLocation({
+                hash: window.location.hash,
+                page: pages.data[index - 1].children[nextSlideIndex - 1],
+                visitor,
+              }));
+          }, 50)
+
+
+          if(nextSlideIndex > 0){
+            $.fn.fullpage.setAllowScrolling(false, 'down, up');
+          } else {
+            $.fn.fullpage.setAllowScrolling(true, 'down, up');
+          }
+
+        },
+        afterSlideLoad: function( anchorLink, index, slideAnchor, slideIndex){
+          self.setState({
+            showInteriorNav: (slideIndex === 0 ) ? false : true,
+          })
+        },
+        afterRender: function(){
+          // Load additional dom-required libraries.
+          const element = document.querySelectorAll( 'img' );
+          const intenseDivs = document.querySelectorAll('*[data-intense="true"]');
+          element && element.length > 0 && Intense( element );
+          intenseDivs && intenseDivs.length > 0 &&  Intense( intenseDivs );
+        },
+      });
+    })
     }
   }
   componentDidMount() {
@@ -116,7 +137,7 @@ class App extends React.Component {
     dispatch(actions.getWPData());
   }
   render(){
-    const { currentIndex, title, currentSectionTitle } = this.state;
+    const { currentIndex, title, currentSectionTitle, allImagesLoaded, percentageLoaded } = this.state;
     const { pages, modal, location } = this.props;
     const anchors = pages.data && pages.data.map(page=>{
       return page.slug;
@@ -136,14 +157,16 @@ class App extends React.Component {
       <Helmet
         title={title}
       >
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <script src="https://js.stripe.com/v3/"></script>
       </Helmet>
 
       {(!pages.ready) ?
         <Loading /> :
         <span>
-          {(!showInteriorNav) ? <Menu /> : null }
+        {(!allImagesLoaded) ? <Loading percentageLoaded={percentageLoaded}/> : null }
+        {/* <Loading percentageLoaded={percentageLoaded}/> */}
+          {(!showInteriorNav && allImagesLoaded) ? <Menu /> : null }
           <Nav
             show={showNav}
             anchors={anchors}
@@ -171,6 +194,10 @@ class App extends React.Component {
       </div>
     )
   }
+}
+
+const instantiateFullPage = ()=>{
+
 }
 
 

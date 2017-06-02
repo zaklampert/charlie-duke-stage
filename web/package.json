@@ -9,7 +9,7 @@
     "fullpage.js": "^2.9.4",
     "gsap": "^1.19.1",
     "howler": "^2.0.3",
-    "imagesloaded": "^4.1.1",
+    "imagesloaded": "^4.1.2",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",

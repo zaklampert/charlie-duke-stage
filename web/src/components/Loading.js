@@ -2,11 +2,14 @@ import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import '../css/progressBar.css';
 
-export default () => (
-  <div>
-    <div className="progress">
-      <div className="indeterminate"></div>
-    </div>
+export default ({percentageLoaded}) => (
+  <div style={{
+    position: 'fixed',
+    width: '100vw',
+    height: '100vh',
+    background: 'black',
+    zIndex: '9999',
+  }}>
     <div className={css(styles.loading)}>
       <div style={{
         position: 'absolute',
@@ -16,8 +19,29 @@ export default () => (
         maxWidth: '75%',
         fontSize: '33px',
         textAlign: 'center',
-
-      }}>"It's hard to describe the vitality of darkness..."</div>
+      }}>"It's hard to describe the vitality of darkness..."
+      {(percentageLoaded) ?
+        <div>
+      <div style={{
+        width: `${percentageLoaded}%`,
+        transition: 'width .5s ease-in',
+        background: 'white',
+        display:'block',
+        height:'4px',
+        borderRadius: '4px',
+        boxSizing: 'border-box',
+        margin: '13px auto',
+      }}>
+      </div>
+      <div style={{
+        fontSize: '11px',
+        fontWeight: '300',
+      }}>
+        {Math.round(percentageLoaded)}%
+      </div>
+      </div>
+      : null}
+    </div>
     </div>
   </div>
 )

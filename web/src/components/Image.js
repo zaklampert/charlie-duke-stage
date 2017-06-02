@@ -24,7 +24,7 @@ export default class Image extends React.Component {
           }}>
            <AudioClip source={audio} />
          </div> : null }
-        <img data-src={image}
+        <img src={image}
              data-image={image}
              alt="Charlie Duke"
              style={{
