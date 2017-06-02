@@ -31,6 +31,7 @@ export default class Image extends React.Component {
                 maxWidth: '100%',
                 maxHeight: '60vh',
                 minHeight: '20vh',
+                minWidth: '250px',
                 cursor:'zoom-in'
                }}
            />
