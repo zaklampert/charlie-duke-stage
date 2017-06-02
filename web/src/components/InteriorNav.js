@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
     [mobile]: {
       // right: '22px%',
+      color: '#848484',
       top: 'inherit',
       bottom: '12px',
       fontSize: '22px',
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
     cursor: 'pointer',
     [mobile]: {
       // right: '22px%',
+      color: '#848484',
       top: 'inherit',
       bottom: '12px',
       fontSize: '22px',
@@ -113,6 +115,7 @@ const styles = StyleSheet.create({
     // color: '#848484',
     [mobile]: {
       bottom: '22px',
+      color: '#848484'
     }
   },
   leftNumber: {
@@ -135,6 +138,7 @@ const styles = StyleSheet.create({
       height: '12px',
       width: '1px',
       verticalAlign: 'middle',
+      background: '#848484'
 
     },
   }
