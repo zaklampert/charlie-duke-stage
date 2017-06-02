@@ -17,7 +17,7 @@ export default ({leftPhoto, leftCaption, rightPhoto, rightCaption, leftVideo, ri
 
 
     </div>
-    <div className={css(styles.half)}>
+    <div className={css(styles.half, styles.lastHalf)}>
       <div style={{display: 'table', margin: '0 auto'}}>
 
       {(rightVideo) ? <VideoPlayer video={rightVideo}/> : null}
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   caption: {
     padding: '5px 0px',
     textAlign: 'left',
+
   },
   audio: {
     textAlign: 'center',
@@ -57,6 +58,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     '@media(max-width: 670px)':{
       width: '100%',
+    }
+  },
+  lastHalf: {
+    '@media(max-width: 670px)': {
+      padding: ' 5px 0px 67px 0px',
     }
   },
   image: {

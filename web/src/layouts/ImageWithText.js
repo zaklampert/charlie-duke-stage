@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   content: {
     '@media(max-width: 670px)': {
-      padding: '0px 9px',
+      padding: '0px 9px 67px 9px',
     }
   }
 })
