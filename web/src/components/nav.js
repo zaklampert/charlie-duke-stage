@@ -24,9 +24,9 @@ export default ({show, currentIndex, anchors, storyPages}) => {
             <a className={css(styles.navLink)} href={`#${page.slug}`} style={{
               color: (currentIndex === i) ? 'white' : '#848484'
             }}>
-              <div style={{margin: '8px 0'}}>
+              {/* <div style={{margin: '8px 0'}}>
                 {formatOrderForMenu(page.order)}
-              </div>
+              </div> */}
               {page.title}
             </a>
             <span className={css(styles.bullet)} style={{
