@@ -256,13 +256,14 @@ var Intense = (function() {
     }
 
     function removeViewer() {
-
-      unlockBody();
-      unbindEvents();
-      stop();
-      document.body.removeChild( container );
-      active = false;
-      setState(false);
+      if ( document.body.contains( container )){
+        unlockBody();
+        unbindEvents();
+        stop();
+        document.body.removeChild( container );
+        active = false;
+        setState(false);
+      }
     }
 
     function setDimensions() {
@@ -387,7 +388,7 @@ var Intense = (function() {
 
       // Parse arguments
       if ( !element ) {
-        // eslint-disable-next-line 
+        // eslint-disable-next-line
         throw 'You need to pass an element!';
       }
 

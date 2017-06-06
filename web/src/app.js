@@ -123,10 +123,12 @@ class App extends React.Component {
         },
         afterRender: function(){
           // Load additional dom-required libraries.
-          const element = document.querySelectorAll( 'img' );
-          const intenseDivs = document.querySelectorAll('*[data-intense="true"]');
-          element && element.length > 0 && Intense( element );
-          intenseDivs && intenseDivs.length > 0 &&  Intense( intenseDivs );
+          setTimeout(()=>{
+            const element = document.querySelectorAll( 'img' );
+            const intenseDivs = document.querySelectorAll('*[data-intense="true"]');
+            element && element.length > 0 && Intense( element );
+            intenseDivs && intenseDivs.length > 0 &&  Intense( intenseDivs );
+          }, 1500);
         },
       });
     })
