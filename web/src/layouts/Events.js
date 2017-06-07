@@ -2,59 +2,61 @@ import React from 'react';
 import {connect} from 'react-redux';
 import { StyleSheet, css } from 'aphrodite';
 import moment from 'moment';
-// import {buttons} from './SectionIntro';
+import _ from 'lodash';
+import '../css/events.css';
 
-const Events = ({events, image, content}) => (
-  <div style={{maxWidth: '1440px', margin: '0 auto',}}>
+const Events = ({events, image, content, title}) => (
+  <div style={{maxWidth: '960px', padding:'0px 36px', margin: '0 auto',}}>
     {/* <div style={{
       position: 'absolute',
       top: '50%',
       width: '100vw',
       transform:'translateY(-50%)',
     }}> */}
+     <h1>{title}</h1>
+
     <div className={css(styles.row)}>
       <div className={css(styles.half)}>
-
-        <div dangerouslySetInnerHTML={{__html: content}} style={{
+        <img src={image} style={{
+          maxWidth: '100%',
+        }}/>
+      </div>
+      <div className={css(styles.half)}>
+        <div dangerouslySetInnerHTML={{__html: content}} className="events-content" style={{
           fontWeight: '300',
           fontSize: '22px',
+          marginBottom:'52px',
         }}/>
-        </div>
-      <div className={css(styles.half)}>
+
         <div className={css(styles.events)} >
-          <h1>Upcoming Appearances</h1>
-          {events.map((event,i)=>{
-            const mapsSearchUrl = `https://www.google.com/maps/search/${event.address}`
+          <h2 style={{
+            textTransform: 'uppercase',
+            fontSize: '18px',
+          }}>Upcoming Appearances</h2>
+
+          {_.sortBy(events, ['eventDate']).map((event,i)=>{
+            // const mapsSearchUrl = `https://www.google.com/maps/search/${event.address}`
             return (
-              <div key={`event_${i}`} style={{
-                padding: '15px 0'
-              }}>
+              <div key={`event_${i}`} className={css(styles.eventRow)} >
+                <div className={css(styles.eventColumn, styles.eventVenue)}>
                 <a href={event.event_link} target="_blank" rel="noopener noreferrer" style={{textDecoration:'none', color: 'white'}}>
-                  <span className={css(styles.eventTitle)}
-                        dangerouslySetInnerHTML={{__html: event.title}}
-                      />
+                  <span className={css(styles.eventTitle)}>
+                    {event.venue}
+                  </span>
                 </a>
-                <div>
-                  <a href={mapsSearchUrl} target="_blank" rel="noopener noreferrer" style={{color: 'white',}}>{event.venue}</a>
                 </div>
-                <div>
-                {event.eventTime} on {moment(event.eventDate).format('dddd, MMMM Do YYYY')}
+                <div className={css(styles.eventColumn, styles.eventAddress)}>
+                <span>{event.address}</span>
+                </div>
+                <div className={css(styles.eventColumn, styles.eventDate)}>
+                  {moment(event.eventDate).format('MM.DD.YY')}
                 </div>
               </div>
             )
           })}
+
           <a  href="mailto:charlie.duke@charlieduke.net"
-              style={{color: 'white',
-                      textDecoration:'none',
-                      width: '100%',
-                      padding: '15px',
-                      fontSize: '26px',
-                      margin: '15px 0px',
-                      display: 'inline-block',
-                      boxSizing: 'border-box',
-                      textAlign: 'center',
-                      border:'2px solid white',
-                      textTransform:'uppercase'}}>
+            className={css(styles.specialContactButton)}>
             Contact
           </a>
         </div>
@@ -68,44 +70,77 @@ const Events = ({events, image, content}) => (
 const styles = StyleSheet.create({
   row: {
     display: 'flex',
-    padding: '0 36px',
-    justifyContent: 'space-around',
+    // padding: '0 36px',
+    justifyContent: 'space-between',
     flexWrap: 'wrap',
     flexDirection: 'row',
-    alignItems: 'center',
+    '@media (max-width: 670px)':{
+      flexDirection:'column-reverse',
+    }
+    // alignItems: 'center',
   },
   half: {
-    width: '49%',
+    width: '48%',
     '@media(max-width: 960px)':{
-      width: '49%',
+      width: '48%',
     },
     '@media (max-width: 670px)':{
       width: '100%'
     }
   },
-  events: {
-    // maxWidth: '1440px',
-    // minWidth: '70vw',
-    // background: 'rgba(0,0,0,.75)',
-    // margin: '0 auto',
-    // padding: '15px 100px 30px 100px',
-    // color: 'white',
-    // position: 'absolute',
-    // top: '50%',
-    // left: '50%',
-    // transform: 'translate(-50%, -50%)',
-    // // width: '100%',
-    // '@media (max-width: 670px)':{
-    //   padding: '22px 22px 100px 22px',
-    //   position: 'relative',
-    // }
+  eventRow: {
+    display: 'flex',
+    // padding: '0 36px',
+    // justifyContent: 'space-between',
+    marginBottom: '22px',
+    width: '100%',
+    flexWrap: 'no-wrap',
+    flexDirection: 'row',
+    // alignItems: 'center',
+  },
+  eventColumn: {
+    flexGrow: '0',
+    flexShrink: '0',
+    verticalAlign: 'top',
+  },
+  eventVenue: {
+    width: '40%'
+  },
+  eventAddress:{
+    width: '40%',
+    color: '#adadad',
+    padding:'0px 5px',
+    boxSizing: 'border-box',
+  },
+  eventDate: {
+    width: '20%',
+    textAlign: 'right',
+    color: '#adadad',
   },
   eventTitle: {
-    fontSize: '33px',
-    '@media (max-width: 670px)':{
-      fontSize: '22px',
-    }
-  }
+    // fontSize: '33px',
+    // '@media (max-width: 670px)':{
+    //   fontSize: '22px',
+    // }
+  },
+  specialContactButton: {
+      color: 'white',
+      textDecoration:'none',
+      width: '100%',
+      padding: '17px',
+      fontSize: '18px',
+      margin: '15px 0px',
+      display: 'inline-block',
+      boxSizing: 'border-box',
+      textAlign: 'center',
+      border:'2px solid white',
+      textTransform:'uppercase',
+      fontWeight: '600',
+      ':hover': {
+        background: 'white',
+        color: 'black',
+      }
+    },
 })
 
 

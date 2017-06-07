@@ -91,7 +91,7 @@ export const mapDataToPage = (dataFromWordpress) => {
 }
 
 export const mapEvents = (dataFromWordpress) => {
-  const yesterday = moment().subtract(1, 'days').format();
+  const yesterday = moment().subtract(2, 'days').format();
   return dataFromWordpress && dataFromWordpress.filter(event => {
     const eventDate = event && event.meta_box && event.meta_box.event_date && moment.utc(event.meta_box.event_date * 1000).format();
     return eventDate && (moment(eventDate).isAfter(yesterday, 'day'))
