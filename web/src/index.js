@@ -9,7 +9,8 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 
-import Root from './root';
+// import Root from './root';
+import App from './app';
 import reducer from './reducers/index.js'
 
 const middleware = [ thunk ]
@@ -26,7 +27,8 @@ injectTapEventPlugin();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Root />
+    {/* <Root /> */}
+    <App />
   </Provider>,
   document.getElementById('app')
 )
