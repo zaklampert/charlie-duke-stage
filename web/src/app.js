@@ -47,7 +47,6 @@ class App extends React.Component {
     const anchors = pages.data && pages.data.map(page=>{
       return page.slug;
     });
-    const visitor = ua(UA_ID);
     const imgLoad = imagesloaded(document.getElementById('fullpage'), {background: true});
     let imgCount = 0;
     imgLoad.on('progress', (instance, image) => {
@@ -63,6 +62,8 @@ class App extends React.Component {
 
     });
     imgLoad.on('always', ()=>{
+      const visitor = ua(UA_ID);
+
       this.setState({
         allImagesLoaded: true,
       });
@@ -196,10 +197,6 @@ class App extends React.Component {
       </div>
     )
   }
-}
-
-const instantiateFullPage = ()=>{
-
 }
 
 

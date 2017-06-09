@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import '../css/progressBar.css';
 
 export default ({percentageLoaded}) => (
   <div style={{
@@ -9,6 +8,7 @@ export default ({percentageLoaded}) => (
     height: '100vh',
     background: 'black',
     zIndex: '9999',
+    color: 'white',
   }}>
     <div className={css(styles.loading)}>
       <div style={{
@@ -19,7 +19,8 @@ export default ({percentageLoaded}) => (
         maxWidth: '75%',
         fontSize: '33px',
         textAlign: 'center',
-      }}>"It's hard to describe the vitality of darkness..."
+      }}>
+      "It's hard to describe the vitality of darkness..."
       {(percentageLoaded) ?
         <div>
       <div style={{

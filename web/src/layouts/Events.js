@@ -17,7 +17,7 @@ const Events = ({events, image, content, title}) => (
 
     <div className={css(styles.row)}>
       <div className={css(styles.half)}>
-        <img src={image} style={{
+        <img src={image} alt="" style={{
           maxWidth: '100%',
         }}/>
       </div>

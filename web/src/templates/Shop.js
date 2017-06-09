@@ -6,7 +6,6 @@ import 'isomorphic-fetch';
 import {FullPageSlide, FullPageSection} from '../layouts';
 import {onStripeToken} from '../actions';
 import '../css/store.css';
-import {buttons} from '../layouts/SectionIntro';
 import $ from 'jquery';
 import Intense from '../lib/intense.js';
 
@@ -47,7 +46,6 @@ class Shop extends React.Component {
     render() {
         const {page, products} = this.props;
         const {numberOfProductsToShow} = this.state;
-        console.log(products.length)
         return (
             <FullPageSection>
                 <FullPageSlide theme="dark" // backgroundPosition="center bottom"

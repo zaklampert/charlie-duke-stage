@@ -2,7 +2,7 @@ import 'isomorphic-fetch';
 import { mapDataToPage, mapEvents, mapProducts } from '../data';
 import { pauseHowls } from '../helpers';
 
-const API_URL = 'https://charlieduke.wpengine.com';
+const API_URL = 'https://missioncontrol.charlieduke.com';
 
 
 export const POPULATE_MENU = 'POPULATE_MENU';
@@ -102,7 +102,7 @@ export const updateLocation = ({hash, page, visitor}) => dispatch => {
     dp: window.location.hash.split("#")[1],
     dt: page && page.title,
     dh: window.location.host,
-  });
+  }).send();
   pauseHowls();
   const section = (hash.lastIndexOf("/") > -1) ? hash.substring(hash.lastIndexOf("#")+1,hash.lastIndexOf("/")) : hash.split('#')[1];
   const slide = hash.split('/')[1] || null;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import $ from 'jquery';
-import {formatOrderForMenu} from '../components/nav';
+// import {formatOrderForMenu} from '../components/nav';
 
 export default ({order, title, copy, buttonText}) => (
   <div className={css(styles.sectionIntro)}>
