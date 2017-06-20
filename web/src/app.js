@@ -5,16 +5,16 @@ import { TweenMax } from 'gsap';
 import { connect } from 'react-redux'
 // eslint-disable-next-line
 import { fullpage } from 'fullpage.js';
-// eslint-disable-next-line
-import ua from 'universal-analytics';
 import { Nav, InteriorNav, Modal, Menu } from './components';
 import { About, Hero, Story, Shop } from './templates';
 import * as actions from './actions';
 import { Loading } from './components';
 import Intense from './lib/intense.js';
 import imagesloaded from 'imagesloaded';
+import './lib/credit.js';
 
 const UA_ID = 'UA-16122526-34';
+const gacd = window.gacd;
 
 const Templates = {
   About,
@@ -62,8 +62,9 @@ class App extends React.Component {
 
     });
     imgLoad.on('always', ()=>{
-      const visitor = ua(UA_ID);
-
+      // const visitor = ua(UA_ID);
+      gacd('create', UA_ID, 'auto')
+      gacd('send', 'pageview', {page: 'charlie-duke'});
       this.setState({
         allImagesLoaded: true,
       });
@@ -82,7 +83,7 @@ class App extends React.Component {
               dispatch(actions.updateLocation({
                 hash: window.location.hash,
                 page: pages.data[nextIndex - 1],
-                visitor
+                // visitor
               }));
           }, 50);
 
@@ -105,7 +106,7 @@ class App extends React.Component {
               dispatch(actions.updateLocation({
                 hash: window.location.hash,
                 page: pages.data[index - 1].children[nextSlideIndex - 1],
-                visitor,
+                // visitor,
               }));
           }, 50)
 

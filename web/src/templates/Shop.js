@@ -8,6 +8,7 @@ import {onStripeToken} from '../actions';
 import '../css/store.css';
 import $ from 'jquery';
 import Intense from '../lib/intense.js';
+import {Footer} from '../components';
 
 const currencyToNumber = (currency) => {
     return Number(currency.replace(/[^0-9]+/g, ""));
@@ -17,7 +18,7 @@ const displayPrice = (currency) => {
     return currency.split('.')[0];
 }
 
-const STRIPE_KEY = "pk_Z4nRov9Ge6n90mXq9v0VQeFmgIbsr";
+const STRIPE_KEY = "pk_live_vMPhZPvKz8H87pxtLJnEqRJ0";
 
 const stripeProps = {
     stripeKey: STRIPE_KEY,
@@ -119,6 +120,7 @@ class Shop extends React.Component {
                         paddingBottom: '41.7%',
                         backgroundSize: 'contain'
                     }}></div>
+                    <Footer />
                 </FullPageSlide>
             </FullPageSection>
         )
@@ -266,7 +268,7 @@ class Product extends React.Component {
                                 textAlign: 'center'
                             }}>
                                 <StripeCheckout {...stripeProps} token={onStripeToken.bind(this, {
-                                    amount: (currencyToNumber(product.price) * 100) + (currencyToNumber(shippingRate) * 100),
+                                    amount: (currencyToNumber(product.price)) + (currencyToNumber(shippingRate) * 100),
                                     inscription: inscription,
                                     product_description: product.title,
                                     success: this._onSuccess,

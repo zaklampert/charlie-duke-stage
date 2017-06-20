@@ -14,7 +14,7 @@ export const HIDE_MODAL = 'HIDE_MODAL';
 export const UPDATE_LOCATION = 'UPDATE_LOCATION';
 export const POPULATE_MAIN_MENU = 'POPULATE_MAIN_MENU';
 
-
+const gacd = window.gacd;
 
 const apiOptions = {
   // headers:{
@@ -98,11 +98,13 @@ const receiveMainMenu = (items) => ({
 })
 
 export const updateLocation = ({hash, page, visitor}) => dispatch => {
-  visitor.pageview({
-    dp: window.location.hash.split("#")[1],
-    dt: page && page.title,
-    dh: window.location.host,
-  }).send();
+  // visitor.pageview({
+  //   dp: window.location.hash.split("#")[1],
+  //   dt: page && page.title,
+  //   dh: window.location.host,
+  // }).send();
+  // ga('set', 'page', window.location.hash.split("#")[1])
+  gacd('send', 'pageview', {page: window.location.hash.split("#")[1]});
   pauseHowls();
   const section = (hash.lastIndexOf("/") > -1) ? hash.substring(hash.lastIndexOf("#")+1,hash.lastIndexOf("/")) : hash.split('#')[1];
   const slide = hash.split('/')[1] || null;

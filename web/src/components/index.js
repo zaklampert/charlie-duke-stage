@@ -6,7 +6,7 @@ import Modal from './Modal';
 import VideoPlayer from './VideoPlayer'
 import Menu from './Menu';
 import Image from './Image';
-
+import Footer from './Footer';
 export {
     Nav,
     Menu,
@@ -16,4 +16,5 @@ export {
     InteriorNav,
     Modal,
     VideoPlayer,
+    Footer,
 }
