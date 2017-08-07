@@ -11,11 +11,11 @@ import Intense from '../lib/intense.js';
 import {Footer} from '../components';
 
 const currencyToNumber = (currency) => {
-    return Number(currency.replace(/[^0-9]+/g, ""));
+    return currency && Number(currency.replace(/[^0-9]+/g, ""));
 };
 
 const displayPrice = (currency) => {
-    return currency.split('.')[0];
+    return currency && currency.split('.')[0];
 }
 
 const STRIPE_KEY = "pk_live_vMPhZPvKz8H87pxtLJnEqRJ0";
@@ -87,13 +87,15 @@ class Shop extends React.Component {
                                                 }} dangerouslySetInnerHTML={{
                                                     __html: product.description
                                                 }} className="product_description"/>
+                                                {(product.price_signed) ? <div style={{marginBottom: '20px'}}>Available signed.</div> : null}
                                                 <div style={{
                                                     color: '#c3c3c3',
                                                     fontSize: '15px'
                                                 }}>
-                                                    {displayPrice(product.price)}<br/> {/* US Shipping - {displayPrice(product.domesticShipping)}<br/>
-                   International Shipping - {displayPrice(product.internationalShipping)} */}
+                                                    {displayPrice(product.price)}<br/>
+                                                    {/* {(product.price_signed) ? `${displayPrice(product.price_signed)} (Signed)` : null} */}
                                                 </div>
+
                                                 <Product product={product}/>
                                             </div>
                                         </div>
@@ -161,9 +163,10 @@ class Product extends React.Component {
             purchased,
             error
         } = this.state;
-        const offerBoth = product.variants && (product.variants.indexOf('signed') > -1) && (product.variants.indexOf('unsigned') > -1);
-        const offerOnlySigned = product.variants && (product.variants.indexOf('signed') > -1) && (product.variants.indexOf('unsigned') < 0);
-
+        const offerBoth = product.variants && (product.variants.indexOf('signed') > -1) && (product.variants.indexOf('standard') > -1);
+        const offerOnlySigned = product.variants && (product.variants.indexOf('signed') > -1) && (product.variants.indexOf('standard') < 0);
+        const signedDifference = product.price_signed && product.price && currencyToNumber(product.price_signed) - currencyToNumber(product.price);
+        const signedDifferenceInDolars = signedDifference && (signedDifference / 100)
         if (purchased) {
             return (
                 <div className={css(styles.purchaseSuccess)}>
@@ -227,7 +230,7 @@ class Product extends React.Component {
                     {(shippingRate && offerBoth && !wantSigned)
                         ? <div>
 
-                                Would you like this signed?
+                                {(product.price_signed) ? `Would you like this signed for another $${signedDifferenceInDolars}?` : 'Would you like this signed?' }
                                 <div style={{
                                     padding: '5px'
                                 }}>
@@ -267,15 +270,21 @@ class Product extends React.Component {
                                 display: 'block',
                                 textAlign: 'center'
                             }}>
-                                <StripeCheckout {...stripeProps} token={onStripeToken.bind(this, {
-                                    amount: (currencyToNumber(product.price)) + (currencyToNumber(shippingRate) * 100),
+                                <StripeCheckout {...stripeProps}
+                                  token={onStripeToken.bind(this, {
+                                    amount: (currencyToNumber((wantSigned === "yes") && product.price_signed)? product.price_signed : product.price) + (currencyToNumber(shippingRate)),
                                     inscription: inscription,
                                     product_description: product.title,
                                     success: this._onSuccess,
                                     error: this._onError
-                                })} description={`${product.title} ${ (wantSigned && inscription)
+                                  })}
+                                  description={`${product.title} ${ (wantSigned && inscription)
                                     ? "Inscribed: " + inscription
-                                    : ""}`} amount={(currencyToNumber(product.price) * 100) + (currencyToNumber(shippingRate) * 100)} currency="USD" panelLabel={`${product.price} + ${shippingRate} shipping`} image={product.image}>
+                                    : ""}`}
+                                  amount={(currencyToNumber((wantSigned === "yes" && product.price_signed) ? product.price_signed : product.price) * 100) + (currencyToNumber(shippingRate) * 100)}
+                                  currency="USD"
+                                  panelLabel={`${(wantSigned === "yes" && product.price_signed) ? product.price_signed : product.price} + ${shippingRate} shipping`}
+                                  image={product.image}>
 
                                     <div className={css(styles.specialShopButton)} onClick={() => {
                                         this.setState({ordering: true})

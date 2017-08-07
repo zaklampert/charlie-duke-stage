@@ -3,7 +3,7 @@ import { mapDataToPage, mapEvents, mapProducts } from '../data';
 import { pauseHowls } from '../helpers';
 
 const API_URL = 'https://missioncontrol.charlieduke.com';
-
+// const API_URL = 'https://charlieduke.staging.wpengine.com';
 
 export const POPULATE_MENU = 'POPULATE_MENU';
 export const POPULATE_PAGES = 'POPULATE_PAGES';
@@ -22,10 +22,11 @@ const apiOptions = {
   // 'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept, Authorization",
   // },
   // method: 'GET',
-  // headers: {
-  //   Accept: 'application/json',
-  // },
+  headers: {
+    Accept: 'application/json',
+  },
   mode: 'cors',
+  // responseType: 'json',
 }
 
 export const onStripeToken = ({
@@ -35,7 +36,6 @@ export const onStripeToken = ({
     inscription,
     product_description
   }, token, args ) => {
-
   let myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
   fetch(`${API_URL}/wp-json/duke/v1/stripe/charge`, {
@@ -188,9 +188,9 @@ const getPages = (menu) => dispatch => {
     .then(response => response.json())
     .then(pages => {
       dispatch(mapWPData(pages, menu))
-    }).catch(err => {
+    }).catch((err) => {
       console.log(err);
-    })
+    });
 }
 
 export const getWPData = () => dispatch => {
