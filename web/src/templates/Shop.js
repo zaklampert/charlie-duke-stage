@@ -60,6 +60,7 @@ class Shop extends React.Component {
                         }}></div>
                         <div className={css(styles.row)}>
                             {products.slice(0, numberOfProductsToShow).map(product => {
+                              const offerOnlySigned = product.variants && (product.variants.indexOf('signed') > -1) && (product.variants.indexOf('standard') < 0);
                                 return (
                                     <div key={product.id} className={css(styles.thirds)}>
                                         <div className={css(styles.productInner)}>
@@ -92,7 +93,7 @@ class Shop extends React.Component {
                                                     color: '#c3c3c3',
                                                     fontSize: '15px'
                                                 }}>
-                                                    {displayPrice(product.price)}<br/>
+                                                    {(offerOnlySigned) ? displayPrice(product.price_signed) : displayPrice(product.price)}<br/>
                                                     {/* {(product.price_signed) ? `${displayPrice(product.price_signed)} (Signed)` : null} */}
                                                 </div>
 
@@ -272,7 +273,7 @@ class Product extends React.Component {
                             }}>
                                 <StripeCheckout {...stripeProps}
                                   token={onStripeToken.bind(this, {
-                                    amount: (currencyToNumber((wantSigned === "yes") && product.price_signed)? product.price_signed : product.price) + (currencyToNumber(shippingRate)),
+                                    amount: (currencyToNumber(((wantSigned === "yes") || offerOnlySigned) && product.price_signed) ? product.price_signed : product.price) + (currencyToNumber(shippingRate)),
                                     inscription: inscription,
                                     product_description: product.title,
                                     success: this._onSuccess,
@@ -281,9 +282,9 @@ class Product extends React.Component {
                                   description={`${product.title} ${ (wantSigned && inscription)
                                     ? "Inscribed: " + inscription
                                     : ""}`}
-                                  amount={(currencyToNumber((wantSigned === "yes" && product.price_signed) ? product.price_signed : product.price) * 100) + (currencyToNumber(shippingRate) * 100)}
+                                  amount={(currencyToNumber(((wantSigned === "yes" || offerOnlySigned) && product.price_signed) ? product.price_signed : product.price) * 100) + (currencyToNumber(shippingRate) * 100)}
                                   currency="USD"
-                                  panelLabel={`${(wantSigned === "yes" && product.price_signed) ? product.price_signed : product.price} + ${shippingRate} shipping`}
+                                  panelLabel={`${(((wantSigned === "yes") || offerOnlySigned )&& product.price_signed) ? product.price_signed : product.price} + ${shippingRate} shipping`}
                                   image={product.image}>
 
                                     <div className={css(styles.specialShopButton)} onClick={() => {
