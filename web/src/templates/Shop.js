@@ -61,6 +61,9 @@ class Shop extends React.Component {
                         <div className={css(styles.row)}>
                             {products.slice(0, numberOfProductsToShow).map(product => {
                               const offerOnlySigned = product.variants && (product.variants.indexOf('signed') > -1) && (product.variants.indexOf('standard') < 0);
+                              const offerBoth = product.variants && (product.variants.indexOf('signed') > -1) && (product.variants.indexOf('standard') > -1);
+                              const signedDifference = product.price_signed && product.price && currencyToNumber(product.price_signed) - currencyToNumber(product.price);
+                              const signedDifferenceInDolars = signedDifference && (signedDifference / 100);
                                 return (
                                     <div key={product.id} className={css(styles.thirds)}>
                                         <div className={css(styles.productInner)}>
@@ -88,12 +91,13 @@ class Shop extends React.Component {
                                                 }} dangerouslySetInnerHTML={{
                                                     __html: product.description
                                                 }} className="product_description"/>
-                                                {(product.price_signed) ? <div style={{marginBottom: '20px'}}>Available signed.</div> : null}
                                                 <div style={{
                                                     color: '#c3c3c3',
                                                     fontSize: '15px'
                                                 }}>
                                                     {(offerOnlySigned) ? displayPrice(product.price_signed) : displayPrice(product.price)}<br/>
+                                                    {(offerBoth) ? `Available signed for $${signedDifferenceInDolars} more` : <br/>}
+
                                                     {/* {(product.price_signed) ? `${displayPrice(product.price_signed)} (Signed)` : null} */}
                                                 </div>
 
