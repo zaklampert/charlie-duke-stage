@@ -286,7 +286,7 @@ class Product extends React.Component {
                                   description={`${product.title} ${ (wantSigned && inscription)
                                     ? "Inscribed: " + inscription
                                     : ""}`}
-                                  amount={(currencyToNumber(((wantSigned === "yes" || offerOnlySigned) && product.price_signed) ? product.price_signed : product.price) * 100) + (currencyToNumber(shippingRate) * 100)}
+                                  amount={(currencyToNumber(((wantSigned === "yes" || offerOnlySigned) && product.price_signed) ? product.price_signed : product.price)) + (currencyToNumber(shippingRate) )}
                                   currency="USD"
                                   panelLabel={`${(((wantSigned === "yes") || offerOnlySigned )&& product.price_signed) ? product.price_signed : product.price} + ${shippingRate} shipping`}
                                   image={product.image}>
