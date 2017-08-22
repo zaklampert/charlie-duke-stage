@@ -18,7 +18,8 @@ const displayPrice = (currency) => {
     return currency && currency.split('.')[0];
 }
 
-const STRIPE_KEY = "pk_live_vMPhZPvKz8H87pxtLJnEqRJ0";
+// const STRIPE_KEY = "pk_live_vMPhZPvKz8H87pxtLJnEqRJ0";
+const STRIPE_KEY = "pk_Z4nRov9Ge6n90mXq9v0VQeFmgIbsr";
 
 const stripeProps = {
     stripeKey: STRIPE_KEY,
